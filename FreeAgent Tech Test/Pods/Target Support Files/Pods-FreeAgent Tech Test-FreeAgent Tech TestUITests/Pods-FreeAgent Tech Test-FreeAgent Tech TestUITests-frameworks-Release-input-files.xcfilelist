@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-FreeAgent Tech Test-FreeAgent Tech TestUITests/Pods-FreeAgent Tech Test-FreeAgent Tech TestUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
+${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
+${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
