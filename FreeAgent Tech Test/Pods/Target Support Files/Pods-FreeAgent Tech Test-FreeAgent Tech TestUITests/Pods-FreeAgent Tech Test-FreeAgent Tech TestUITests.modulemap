@@ -1,0 +1,6 @@
+framework module Pods_FreeAgent_Tech_Test_FreeAgent_Tech_TestUITests {
+  umbrella header "Pods-FreeAgent Tech Test-FreeAgent Tech TestUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
