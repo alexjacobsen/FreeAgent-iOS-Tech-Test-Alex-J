@@ -1,7 +1,7 @@
 import UIKit
 
 enum AppChildCoordinator {
-    case home
+    case currencyConverter
 }
 
 final class AppCoordinator: Coordinator {
@@ -10,13 +10,19 @@ final class AppCoordinator: Coordinator {
 //    var dependencies: Dependencies
 //    internal let actions: Actions
     var rootViewController: UIViewController?
+    var dependencies: Dependencies
     
     // Private variables
     private var coordinator: Coordinator?
     
+    // MARK: - Initialiser -
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
+    
     // MARK: - Public methods -
     func start() {
-        launchAppRoot(with: .home)
+        launchAppRoot(with: .currencyConverter)
     }
 
     func reset() {
@@ -34,6 +40,8 @@ internal extension AppCoordinator {
             guard let self = self else { return }
             
             self.goTo(route: route)
+            self.dependencies.window.rootViewController = self.rootViewController
+            self.dependencies.window.makeKeyAndVisible()
         }
     }
 
@@ -41,24 +49,29 @@ internal extension AppCoordinator {
         
         switch route {
         
-        case .home:
+        case .currencyConverter:
             
             let navigationController = UINavigationController()
             let currencyConverterCoordinator = CurrencyConverterCoordinator(dependencies: .init(navigationController: navigationController))
             
             currencyConverterCoordinator.start()
             
-            rootViewController = UINavigationController()
+            rootViewController = navigationController
             coordinator = currencyConverterCoordinator
         }
+    }
+}
+
+extension AppCoordinator {
+    struct Dependencies {
+        let window: UIWindow
     }
 }
 
 private extension AppCoordinator {
     
     var activeNavigationController: UINavigationController? {
-        return [rootViewController as? UINavigationController,
-                (rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController]
+        return [rootViewController as? UINavigationController]
             .compactMap { $0 }
             .first
     }

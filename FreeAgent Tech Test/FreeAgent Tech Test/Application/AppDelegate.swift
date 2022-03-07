@@ -1,18 +1,12 @@
 import UIKit
 import RxSwift
 
-@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    private var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let window = UIWindow()
         
-        let appCoordinator = AppCoordinator()
-        self.appCoordinator = appCoordinator
-        
-        self.appCoordinator?.start()
         return true
     }
 
