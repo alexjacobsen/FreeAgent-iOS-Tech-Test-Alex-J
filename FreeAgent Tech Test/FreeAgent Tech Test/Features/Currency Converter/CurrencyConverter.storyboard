@@ -11,13 +11,42 @@
         <!--Currency Converter Overview View Controller-->
         <scene sceneID="Lu3-sf-nRg">
             <objects>
-                <viewController id="Haw-bq-plj" customClass="CurrencyConverterOverviewViewController" customModule="FreeAgent_Tech_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrencyConverter" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Haw-bq-plj" customClass="CurrencyConverterOverviewViewController" customModule="FreeAgent_Tech_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X2U-JX-QMV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rm0-yi-Ktt">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-C1-H5Y">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <color key="backgroundColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="S1T-xU-OaM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dji-3Y-zUP">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="774"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="uH2-Jt-M2p"/>
-                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uH2-Jt-M2p" firstAttribute="bottom" secondItem="rm0-yi-Ktt" secondAttribute="bottom" id="ESQ-BA-1aW"/>
+                            <constraint firstItem="uH2-Jt-M2p" firstAttribute="trailing" secondItem="rm0-yi-Ktt" secondAttribute="trailing" id="FO4-Or-d8e"/>
+                            <constraint firstItem="rm0-yi-Ktt" firstAttribute="top" secondItem="uH2-Jt-M2p" secondAttribute="top" id="LTW-oy-BQB"/>
+                            <constraint firstItem="rm0-yi-Ktt" firstAttribute="leading" secondItem="uH2-Jt-M2p" secondAttribute="leading" id="Wsw-VW-WjV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Dji-3Y-zUP" id="jef-7C-1dG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0VK-Lv-bE4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -25,8 +54,11 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
