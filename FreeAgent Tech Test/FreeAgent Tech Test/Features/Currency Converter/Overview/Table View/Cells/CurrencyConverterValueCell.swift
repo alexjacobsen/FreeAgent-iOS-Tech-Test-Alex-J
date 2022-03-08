@@ -15,6 +15,16 @@ class CurrencyConverterValueCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .freeAgentBlue()
+        self.selectedBackgroundView = backgroundView
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        titleLabel.textColor = selected ? .white : .freeAgentBlue()
+        valueLabel.textColor = selected ? .white : .freeAgentBlue()
     }
     
 }

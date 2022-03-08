@@ -6,6 +6,9 @@ protocol CurrencyConverterOverviewViewModelProtocol {
     var title: String { get }
     var initialEurosValue: String { get }
     var items: Driver<[CurrencyConverterValueCellViewModel]> { get }
+    var unselectRowAt: Observable<Int> { get }
+    
+    func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool
 }
 
 enum TableItem {
@@ -55,13 +58,14 @@ struct CurrencyConverterOverviewViewModel {
         let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterValueCellViewModel]>>()
         let cellViewModelsObservable: Observable<[CurrencyConverterValueCellViewModel]> = cellViewModelsSource.switchLatest()
         let eurosValue = PublishSubject<Double>()
+        let unselectRowsSource = PublishSubject<Int>()
         
-        var selectedCell: CurrencyConverterValueCellViewModel?
+        var selectedCellIndexes = [Int]()
         var cellViewModels = [CurrencyConverterValueCellViewModel]()
             
         eurosValue.onNext(100.0)
         
-        // Subcribing to changes of the euros value allows us to build the datasource in the fly with the changes typed into the textfield
+        /// Subcribing to changes of the euros value allows us to build the datasource in the fly with the changes typed into the textfield
         eurosValue.subscribe(onNext: { eurosValue in
             guard let euroCurrency = currencies.currencies.first(where: { $0.base == .eur }) else { fatalError("Euros not available in response") }
                         
@@ -74,9 +78,31 @@ struct CurrencyConverterOverviewViewModel {
         
         let items = cellViewModelsObservable.share(replay: 1)
         
-        Observable.combineLatest(items, input.itemSelected)
-            .subscribe(onNext: { selectedCell = cellViewModels[$1.row] })
-            .disposed(by: disposeBag)
+        /// This code handles keeping track of selected rows and informing the VC about which rows to deselect in the TableView
+        input.itemSelected.subscribe(onNext: {
+            let selectedRow = $0.row
+            
+            if selectedCellIndexes.count == 2 {
+                if let oldestSelectedRow = selectedCellIndexes.first {
+                    unselectRowsSource.onNext(oldestSelectedRow)
+                }
+                selectedCellIndexes.removeFirst()
+            }
+            selectedCellIndexes.append(selectedRow)
+        })
+        .disposed(by: disposeBag)
+        
+        input.itemDeselected.subscribe(onNext: {
+            let selectedRow = $0.row
+            
+            // Remove the row if it is already in the array
+            if let selectedRowIndex = selectedCellIndexes.firstIndex(of: selectedRow) {
+                selectedCellIndexes.remove(at: selectedRowIndex)
+            } else { // Otherwise add it
+                fatalError("FF")
+            }
+        })
+        .disposed(by: disposeBag)
                         
         input.eurosValueEntered.subscribe(onNext: { eurosString in
             if let eurosString = eurosString,
@@ -87,7 +113,8 @@ struct CurrencyConverterOverviewViewModel {
         
         output = Output(title: "Currency Converter",
                         initialEurosValue: "100.70",
-                        items: items.asDriverOrAssertionFailureInDebugAndEmptyInRelease())
+                        items: items.asDriverOrAssertionFailure(),
+                        unselectRowAt: unselectRowsSource)
     }
     
 }
@@ -98,11 +125,13 @@ extension CurrencyConverterOverviewViewModel {
         let title: String
         let initialEurosValue: String
         let items: Driver<[CurrencyConverterValueCellViewModel]>
+        let unselectRowAt: Observable<Int>
     }
     
     struct UIInput {
         let eurosValueEntered: Observable<String?>
         let itemSelected: Observable<IndexPath>
+        let itemDeselected: Observable<IndexPath>
     }
 }
 
@@ -118,6 +147,36 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
     
     var items: Driver<[CurrencyConverterValueCellViewModel]> {
         output.items
+    }
+    
+    var unselectRowAt: Observable<Int> {
+        output.unselectRowAt
+    }
+    
+    func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool {
+        
+        let decimalSeperator = Locale.current.decimalSeparator ?? "."
+        var allowedCharacters = "123456789"
+        allowedCharacters.append(decimalSeperator)
+        let numberSet = CharacterSet(charactersIn: allowedCharacters).inverted
+
+        guard let oldText = currentText,
+            let range = Range(range, in: oldText),
+            inputText.rangeOfCharacter(from: numberSet) == nil else {
+                return false
+        }
+
+        let newText = oldText.replacingCharacters(in: range, with: inputText)
+        let numberOfDots = newText.components(separatedBy: decimalSeperator).count - 1
+        let numberOfDecimalDigits: Int
+
+        if let dotIndex = newText.firstIndex(of: Character(decimalSeperator)) {
+            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
+        } else {
+            numberOfDecimalDigits = 0
+        }
+
+        return numberOfDots <= 1 && numberOfDecimalDigits <= 2
     }
     
 }

@@ -5,6 +5,7 @@ class CurrencyConverterOverviewViewController: UIViewController {
     
     
     @IBOutlet private weak var eurosTextField: UITextField!
+    @IBOutlet private weak var compareButton: UIButton!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(types: [CurrencyConverterValueCell.self])
@@ -23,14 +24,16 @@ class CurrencyConverterOverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let input = CurrencyConverterOverviewViewModel.UIInput(eurosValueEntered: eurosTextField.rx.text.asObservable(),
-                                                               itemSelected: tableView.rx.itemSelected.asObservable())
+                                                               itemSelected: tableView.rx.itemSelected.asObservable(),
+                                                               itemDeselected: tableView.rx.itemDeselected.asObservable())
         bind(viewModelFactory(input))
-        
         configureUI()
     }
     
     private func configureUI() {
-        eurosTextField.text = viewModel.initialEurosValue
+        compareButton.layer.cornerRadius = 5
+        compareButton.layer.borderWidth = 1
+        compareButton.layer.borderColor = UIColor.clear.cgColor
     }
     
     private func bind(_ viewModel: CurrencyConverterOverviewViewModelProtocol) {
@@ -39,39 +42,24 @@ class CurrencyConverterOverviewViewController: UIViewController {
         let cellType = CurrencyConverterValueCell.self
         
         viewModel.items
-            .drive(tableView.rx.items(cellIdentifier: cellType.reuseIdentifier,
-                                           cellType: cellType)) { _, model, cell in
+            .drive(tableView.rx.items(cellIdentifier: cellType.reuseIdentifier, cellType: cellType)) { _, model, cell in
                 cell.model = model
             }
             .disposed(by: disposeBag)
+        
+        viewModel.unselectRowAt.subscribe(onNext: { [weak self] index in
+            let indexPath = IndexPath(row: index, section: 0)
+            let cell = self?.tableView.cellForRow(at: indexPath) as? CurrencyConverterValueCell
+            
+            cell?.setSelected(false, animated: false)
+        })
     }
 }
 
 extension CurrencyConverterOverviewViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let decimalSeperator = Locale.current.decimalSeparator ?? "."
-        var allowedCharacters = "123456789"
-        allowedCharacters.append(decimalSeperator)
-        let numberSet = CharacterSet(charactersIn: allowedCharacters).inverted
-
-        guard let oldText = textField.text,
-            let r = Range(range, in: oldText),
-            string.rangeOfCharacter(from: numberSet) == nil else {
-                return false
-        }
-
-        let newText = oldText.replacingCharacters(in: r, with: string)
-        let numberOfDots = newText.components(separatedBy: decimalSeperator).count - 1
-        let numberOfDecimalDigits: Int
-
-        if let dotIndex = newText.firstIndex(of: Character(decimalSeperator)) {
-            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
-        } else {
-            numberOfDecimalDigits = 0
-        }
-
-        return numberOfDots <= 1 && numberOfDecimalDigits <= 2
+        viewModel.isValidInput(currentText: textField.text, inputText: string, range: range)
     }
 }
 
