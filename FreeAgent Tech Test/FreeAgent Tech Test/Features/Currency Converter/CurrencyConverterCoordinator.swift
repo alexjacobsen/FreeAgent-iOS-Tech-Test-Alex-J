@@ -41,7 +41,7 @@ internal extension CurrencyConverterCoordinator {
             let overviewViewController = CurrencyConverterOverviewViewController.create()
             overviewViewController.viewModelFactory = { input in
                 return CurrencyConverterOverviewViewModel(input: input,
-                                                          navigateToComparison: { [weak self] in
+                                                          navigateToComparison: { [weak self] currenciesToCompare in
                                                             self?.goTo(.comparison)
                                                           })
             }

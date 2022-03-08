@@ -2,12 +2,14 @@ import Foundation
 import RxSwift
 
 class APIRequest {
-    let baseURL = URL(string: "http://data.fixer.io/api/latest?access_key=2aa762c48b2a48541c0b641039e22527")!
+    let baseURL = URL(string: "\(String.latestExchangeRatesEndpoint)\(String.apiKey)")!
     var method = RequestType.GET
     var parameters = [String: String]()
     
     func request(with baseURL: URL) -> URLRequest {
-           var request = URLRequest(url: baseURL)
+        let components = URLComponents(string: baseURL.absoluteString)
+        let url = components?.url
+        var request = URLRequest(url: url!)
             request.httpMethod = method.rawValue
             return request
         }
@@ -35,4 +37,9 @@ class APICalling {
             }
         }
     }
+}
+
+fileprivate extension String {
+    
+    static let apiKey = "2aa762c48b2a48541c0b641039e22527"
 }

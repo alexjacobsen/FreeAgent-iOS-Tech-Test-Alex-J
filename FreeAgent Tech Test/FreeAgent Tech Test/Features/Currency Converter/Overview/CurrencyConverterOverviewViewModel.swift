@@ -24,7 +24,7 @@ struct CurrencyConverterOverviewViewModel {
     private let output: Output
         
     init(input: UIInput,
-         navigateToComparison: @escaping () -> Void) {
+         navigateToComparison: @escaping ([CurrencyAbbreviation]) -> Void) {
         
         // MARK:- Observables
         let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterValueCellViewModel]>>()
@@ -124,7 +124,21 @@ struct CurrencyConverterOverviewViewModel {
         .disposed(by: disposeBag)
         
         input.compareButtonTapped.subscribe(onNext: {
-            navigateToComparison()
+            var currenciesToCompare = [CurrencyAbbreviation]()
+                        
+            selectedCellIndexes.forEach {
+                if let currencyAbreviation = euroCurrency?.rates[$0].title {
+                    currenciesToCompare.append(currencyAbreviation)
+                }
+                
+            }
+            
+            if currenciesToCompare.count == 2 {
+                navigateToComparison(currenciesToCompare)
+            } else {
+                fatalError("It should not be possible to get here if there are notn exactly 2 currencies selected")
+            }
+            
         })
         .disposed(by: disposeBag)
         

@@ -19,6 +19,7 @@
 		FABB354627D7C0C100A1CEB6 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB354527D7C0C100A1CEB6 /* RequestType.swift */; };
 		FABB355627D7D02D00A1CEB6 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB355527D7D02D00A1CEB6 /* Currency.swift */; };
 		FABB355B27D7DE6000A1CEB6 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB355A27D7DE6000A1CEB6 /* AlertConfig.swift */; };
+		FABB356027D7E86E00A1CEB6 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB355F27D7E86E00A1CEB6 /* Endpoints.swift */; };
 		FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */; };
 		FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */; };
 		FAEA07E427D3AF1E00D38E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA07E227D3AF1E00D38E40 /* Main.storyboard */; };
@@ -76,6 +77,7 @@
 		FABB354527D7C0C100A1CEB6 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		FABB355527D7D02D00A1CEB6 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		FABB355A27D7DE6000A1CEB6 /* AlertConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
+		FABB355F27D7E86E00A1CEB6 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		FAEA07D927D3AF1E00D38E40 /* FreeAgent Tech Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FreeAgent Tech Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				FABB354527D7C0C100A1CEB6 /* RequestType.swift */,
+				FABB355F27D7E86E00A1CEB6 /* Endpoints.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				FAEA087827D4FDFA00D38E40 /* CurrencyConverterOverviewViewController.swift in Sources */,
 				FAEA084C27D3C6D400D38E40 /* CurrencyConverterCoordinator.swift in Sources */,
 				FABB352327D6599100A1CEB6 /* MyApplication.swift in Sources */,
+				FABB356027D7E86E00A1CEB6 /* Endpoints.swift in Sources */,
 				FAEA08E227D635D300D38E40 /* UITableViewExtensions.swift in Sources */,
 				FAEA083327D3BF0F00D38E40 /* Coordinator.swift in Sources */,
 				FABB355B27D7DE6000A1CEB6 /* AlertConfig.swift in Sources */,
