@@ -57,6 +57,10 @@
                 <constraint firstItem="JwP-uD-pts" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="rFh-Ah-I4B"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="titleLabel" destination="FxJ-Fc-fMl" id="L5v-UU-Csg"/>
+                <outlet property="valueLabel" destination="WDb-v0-cYz" id="ws8-6b-lFS"/>
+            </connections>
             <point key="canvasLocation" x="-281" y="31"/>
         </view>
     </objects>

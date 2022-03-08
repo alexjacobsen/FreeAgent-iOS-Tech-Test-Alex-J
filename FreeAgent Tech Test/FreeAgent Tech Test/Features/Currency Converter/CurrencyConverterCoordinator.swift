@@ -45,9 +45,11 @@ internal extension CurrencyConverterCoordinator {
                                                                                                   timestamp: 1519296206,
                                                                                                   base: .eur,
                                                                                                   date: Date(),
-                                                                                                  rates: [.init(title: .aud, value: 1.768)])]),
+                                                                                                  rates: [.init(title: .aud, value: 1.768),
+                                                                                                          .init(title: .usd, value: 1.0),
+                                                                                                          .init(title: .jpy, value: 0.8)])]),
                                                           navigateToComparison: {
-
+                                                            
                                                           })
             }
             dependencies.navigationController.show(overviewViewController, sender: self)

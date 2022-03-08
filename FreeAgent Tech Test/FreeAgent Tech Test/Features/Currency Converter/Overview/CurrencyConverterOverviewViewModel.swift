@@ -46,49 +46,48 @@ enum CurrencyAbbreviation: String, Codable {
 struct CurrencyConverterOverviewViewModel {
     
     private let disposeBag = DisposeBag()
-    private let currencies: Currencies
     private let output: Output
         
     init(input: UIInput,
          currencies: Currencies,
          navigateToComparison: @escaping () -> Void) {
         
-        self.currencies = currencies
-        var selectedCell: CurrencyConverterValueCellViewModel?
+        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterValueCellViewModel]>>()
+        let cellViewModelsObservable: Observable<[CurrencyConverterValueCellViewModel]> = cellViewModelsSource.switchLatest()
+        let eurosValue = PublishSubject<Double>()
         
-        var cellViewModels: [CurrencyConverterValueCellViewModel] = [.init(title: "TEST currency", value: "100.90")]
-                
-        let usageItems: Driver<[CurrencyConverterValueCellViewModel]> = .just(cellViewModels)
-        let items = usageItems.asObservable().share(replay: 1)
+        var selectedCell: CurrencyConverterValueCellViewModel?
+        var cellViewModels = [CurrencyConverterValueCellViewModel]()
+            
+        eurosValue.onNext(100.0)
+        
+        // Subcribing to changes of the euros value allows us to build the datasource in the fly with the changes typed into the textfield
+        eurosValue.subscribe(onNext: { eurosValue in
+            guard let euroCurrency = currencies.currencies.first(where: { $0.base == .eur }) else { fatalError("Euros not available in response") }
+                        
+            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterValueCellViewModel in
+                CurrencyConverterValueCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
+            }
+                        
+            cellViewModelsSource.onNext(.just(cellViewModels))
+        }).disposed(by: disposeBag)
+        
+        let items = cellViewModelsObservable.share(replay: 1)
         
         Observable.combineLatest(items, input.itemSelected)
-            .debug()
             .subscribe(onNext: { selectedCell = cellViewModels[$1.row] })
             .disposed(by: disposeBag)
                         
         input.eurosValueEntered.subscribe(onNext: { eurosString in
-            if let euros = Double(eurosString) {
-                convertCurrenciesFromEuros(euros: euros)
+            if let eurosString = eurosString,
+               let euros = Double(eurosString) {
+                eurosValue.onNext(euros)
             }
         }).disposed(by: disposeBag)
         
-        input.itemSelected.subscribe(onNext: {
-            selectedCell = cellViewModels[$0.item]
-        }).disposed(by: disposeBag)
-        
-        output = Output(title: "Title",
+        output = Output(title: "Currency Converter",
                         initialEurosValue: "100.70",
                         items: items.asDriverOrAssertionFailureInDebugAndEmptyInRelease())
-        
-        func convertCurrenciesFromEuros(euros: Double) {
-            cellViewModels.removeAll()
-            
-            guard let euroCurrency = currencies.currencies.first(where: { $0.base == .eur }) else { fatalError("Euros not avalible in response") }
-                        
-            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterValueCellViewModel in
-                CurrencyConverterValueCellViewModel(title: rate.title.rawValue, value: String(rate.value))
-            }
-        }
     }
     
 }
@@ -102,7 +101,7 @@ extension CurrencyConverterOverviewViewModel {
     }
     
     struct UIInput {
-        let eurosValueEntered: Observable<String>
+        let eurosValueEntered: Observable<String?>
         let itemSelected: Observable<IndexPath>
     }
 }
