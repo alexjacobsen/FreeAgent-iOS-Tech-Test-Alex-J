@@ -3,7 +3,9 @@ import Foundation
 
 class CurrencyConverterOverviewViewController: UIViewController {
     
-    
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet private weak var eurosTextField: UITextField!
     @IBOutlet private weak var compareButton: UIButton!
     @IBOutlet private weak var tableView: UITableView! {
@@ -11,7 +13,6 @@ class CurrencyConverterOverviewViewController: UIViewController {
             tableView.register(types: [CurrencyConverterValueCell.self])
         }
     }
-    
     
     var viewModelFactory: (CurrencyConverterOverviewViewModel.UIInput) -> CurrencyConverterOverviewViewModelProtocol = { _ in
         fatalError("`viewModelFactory` must be assigned after initialising viewController")
@@ -25,15 +26,30 @@ class CurrencyConverterOverviewViewController: UIViewController {
         super.viewDidLoad()
         let input = CurrencyConverterOverviewViewModel.UIInput(eurosValueEntered: eurosTextField.rx.text.asObservable(),
                                                                itemSelected: tableView.rx.itemSelected.asObservable(),
-                                                               itemDeselected: tableView.rx.itemDeselected.asObservable())
+                                                               itemDeselected: tableView.rx.itemDeselected.asObservable(),
+                                                               compareButtonTapped: compareButton.rx.tap.asObservable())
         bind(viewModelFactory(input))
-        configureUI()
     }
     
-    private func configureUI() {
-        compareButton.layer.cornerRadius = 5
-        compareButton.layer.borderWidth = 1
-        compareButton.layer.borderColor = UIColor.clear.cgColor
+    private func hideLoadingView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.stopAnimating()
+            self?.loadingView.isHidden = true
+            self?.stackView.isHidden = false
+        }
+    }
+    
+    private func displayAlert(config: AlertConfig) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(title: config.title, message: config.message, preferredStyle: .alert)
+            
+            for action in config.actions {
+                alert.addAction(action)
+            }
+            
+            // Present Alert to
+            self?.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func bind(_ viewModel: CurrencyConverterOverviewViewModelProtocol) {
@@ -59,6 +75,16 @@ class CurrencyConverterOverviewViewController: UIViewController {
         /// Unselect cells determined by the view model
         viewModel.enableCompareButton.subscribe(onNext: { [weak self] enableButton in
             self?.compareButton.isEnabled = enableButton
+        })
+        
+        /// Hide the loading view when determined by the view model
+        viewModel.hideLoadingView.subscribe(onNext: { [weak self] in
+            self?.hideLoadingView()
+        })
+        
+        /// Display an allert with the config passed by the view model
+        viewModel.showAlert.subscribe(onNext: { [weak self] config in
+            self?.displayAlert(config: config)
         })
     }
 }

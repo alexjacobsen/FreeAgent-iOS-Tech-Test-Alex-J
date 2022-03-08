@@ -15,6 +15,10 @@
 		FABB352327D6599100A1CEB6 /* MyApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB352227D6599100A1CEB6 /* MyApplication.swift */; };
 		FABB352E27D7961100A1CEB6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB352D27D7961100A1CEB6 /* UIColor+Extensions.swift */; };
 		FABB353627D7AFE900A1CEB6 /* FreeAgentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB353527D7AFE900A1CEB6 /* FreeAgentButton.swift */; };
+		FABB354027D7C09100A1CEB6 /* LatestExchangeRatesAPICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB353F27D7C09100A1CEB6 /* LatestExchangeRatesAPICall.swift */; };
+		FABB354627D7C0C100A1CEB6 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB354527D7C0C100A1CEB6 /* RequestType.swift */; };
+		FABB355627D7D02D00A1CEB6 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB355527D7D02D00A1CEB6 /* Currency.swift */; };
+		FABB355B27D7DE6000A1CEB6 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB355A27D7DE6000A1CEB6 /* AlertConfig.swift */; };
 		FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */; };
 		FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */; };
 		FAEA07E427D3AF1E00D38E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA07E227D3AF1E00D38E40 /* Main.storyboard */; };
@@ -68,6 +72,10 @@
 		FABB352227D6599100A1CEB6 /* MyApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApplication.swift; sourceTree = "<group>"; };
 		FABB352D27D7961100A1CEB6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FABB353527D7AFE900A1CEB6 /* FreeAgentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentButton.swift; sourceTree = "<group>"; };
+		FABB353F27D7C09100A1CEB6 /* LatestExchangeRatesAPICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestExchangeRatesAPICall.swift; sourceTree = "<group>"; };
+		FABB354527D7C0C100A1CEB6 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		FABB355527D7D02D00A1CEB6 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		FABB355A27D7DE6000A1CEB6 /* AlertConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
 		FAEA07D927D3AF1E00D38E40 /* FreeAgent Tech Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FreeAgent Tech Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +162,23 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		FABB353E27D7BFCC00A1CEB6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				FABB353F27D7C09100A1CEB6 /* LatestExchangeRatesAPICall.swift */,
+				FABB355527D7D02D00A1CEB6 /* Currency.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		FABB354427D7C0AD00A1CEB6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				FABB354527D7C0C100A1CEB6 /* RequestType.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		FAEA07D027D3AF1E00D38E40 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +257,7 @@
 		FAEA083A27D3C27E00D38E40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FABB354427D7C0AD00A1CEB6 /* Networking */,
 				FABB353A27D7AFED00A1CEB6 /* UI */,
 				FAEA08BA27D537B900D38E40 /* Rx */,
 				FAEA086527D3CE9700D38E40 /* Classes */,
@@ -253,6 +279,7 @@
 		FAEA084A27D3C69B00D38E40 /* Currency Converter */ = {
 			isa = PBXGroup;
 			children = (
+				FABB353E27D7BFCC00A1CEB6 /* Networking */,
 				FAEA087C27D4FE1700D38E40 /* CurrencyConverter.storyboard */,
 				FAEA084B27D3C6D400D38E40 /* CurrencyConverterCoordinator.swift */,
 				FAEA085627D3C87700D38E40 /* Overview */,
@@ -292,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				FAEA084127D3C38D00D38E40 /* Error.swift */,
+				FABB355A27D7DE6000A1CEB6 /* AlertConfig.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -592,14 +620,18 @@
 				FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */,
 				FABB353627D7AFE900A1CEB6 /* FreeAgentButton.swift in Sources */,
 				FAEA08AE27D519A000D38E40 /* CurrencyConverterValueCellViewModel.swift in Sources */,
+				FABB354027D7C09100A1CEB6 /* LatestExchangeRatesAPICall.swift in Sources */,
 				FAEA087827D4FDFA00D38E40 /* CurrencyConverterOverviewViewController.swift in Sources */,
 				FAEA084C27D3C6D400D38E40 /* CurrencyConverterCoordinator.swift in Sources */,
 				FABB352327D6599100A1CEB6 /* MyApplication.swift in Sources */,
 				FAEA08E227D635D300D38E40 /* UITableViewExtensions.swift in Sources */,
 				FAEA083327D3BF0F00D38E40 /* Coordinator.swift in Sources */,
+				FABB355B27D7DE6000A1CEB6 /* AlertConfig.swift in Sources */,
 				FAEA082A27D3BE6E00D38E40 /* AppCoordinator.swift in Sources */,
 				FABB352E27D7961100A1CEB6 /* UIColor+Extensions.swift in Sources */,
+				FABB354627D7C0C100A1CEB6 /* RequestType.swift in Sources */,
 				FABB351027D6588500A1CEB6 /* main.swift in Sources */,
+				FABB355627D7D02D00A1CEB6 /* Currency.swift in Sources */,
 				FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */,
 				FAEA08B627D536FF00D38E40 /* ObservableConvertible+RxExtensions.swift in Sources */,
 				FAEA084227D3C38D00D38E40 /* Error.swift in Sources */,

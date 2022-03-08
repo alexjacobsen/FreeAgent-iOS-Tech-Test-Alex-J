@@ -30,33 +30,26 @@ extension CurrencyConverterCoordinator {
 // MARK: - Private implementation
 internal extension CurrencyConverterCoordinator {
     
-    enum Screen {
+    enum Stage {
         case overview
         case comparison
     }
     
-    func goTo(_ screen: Screen) {
-        switch screen {
+    func goTo(_ stage: Stage) {
+        switch stage {
         case .overview:
             let overviewViewController = CurrencyConverterOverviewViewController.create()
-            overviewViewController.viewModelFactory = { [unowned self] input in
+            overviewViewController.viewModelFactory = { input in
                 return CurrencyConverterOverviewViewModel(input: input,
-                                                          currencies: .init(currencies: [Currency(success: true,
-                                                                                                  timestamp: 1519296206,
-                                                                                                  base: .eur,
-                                                                                                  date: Date(),
-                                                                                                  rates: [.init(title: .aud, value: 1.768),
-                                                                                                          .init(title: .usd, value: 1.0),
-                                                                                                          .init(title: .jpy, value: 0.8)])]),
-                                                          navigateToComparison: {
-                                                            
+                                                          navigateToComparison: { [weak self] in
+                                                            self?.goTo(.comparison)
                                                           })
             }
             dependencies.navigationController.show(overviewViewController, sender: self)
-        return
+            return
             
         case .comparison:
-//            let comparisonViewController = CurrencyConverterComparisonViewController.create()
+            //            let comparisonViewController = CurrencyConverterComparisonViewController.create()
 //            overviewViewController.viewModelFactory = { [unowned self] input in
 //                return CurrencyConverterComparisonViewModel(input: input,
 //                                                   sendEvent: self.actions.common.sendEvent,
@@ -67,6 +60,7 @@ internal extension CurrencyConverterCoordinator {
 //            }
 //            dependencies.navigationController.push(comparisonViewController, sender: self)
         return
+        
         }
     }
 }

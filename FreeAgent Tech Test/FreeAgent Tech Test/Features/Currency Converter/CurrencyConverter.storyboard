@@ -17,7 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rm0-yi-Ktt">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxk-XY-noJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-dl-oSW">
+                                        <rect key="frame" x="157" y="359" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="gHI-sh-S13"/>
+                                            <constraint firstAttribute="height" constant="100" id="zA4-8R-GyW"/>
+                                        </constraints>
+                                        <color key="color" name="FreeAgentGreen"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" name="FreeAgentBlue"/>
+                                <constraints>
+                                    <constraint firstItem="S9i-dl-oSW" firstAttribute="centerX" secondItem="uxk-XY-noJ" secondAttribute="centerX" id="SZM-th-RVd"/>
+                                    <constraint firstItem="S9i-dl-oSW" firstAttribute="centerY" secondItem="uxk-XY-noJ" secondAttribute="centerY" id="e13-rc-xrh"/>
+                                </constraints>
+                            </view>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rm0-yi-Ktt">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tG6-59-p9V">
@@ -85,15 +103,22 @@
                         <viewLayoutGuide key="safeArea" id="uH2-Jt-M2p"/>
                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="uH2-Jt-M2p" firstAttribute="bottom" secondItem="uxk-XY-noJ" secondAttribute="bottom" id="9Vo-c7-T2b"/>
                             <constraint firstItem="uH2-Jt-M2p" firstAttribute="bottom" secondItem="rm0-yi-Ktt" secondAttribute="bottom" id="ESQ-BA-1aW"/>
                             <constraint firstItem="uH2-Jt-M2p" firstAttribute="trailing" secondItem="rm0-yi-Ktt" secondAttribute="trailing" id="FO4-Or-d8e"/>
+                            <constraint firstItem="uH2-Jt-M2p" firstAttribute="trailing" secondItem="uxk-XY-noJ" secondAttribute="trailing" id="HgM-Wy-V8u"/>
                             <constraint firstItem="rm0-yi-Ktt" firstAttribute="top" secondItem="uH2-Jt-M2p" secondAttribute="top" id="LTW-oy-BQB"/>
                             <constraint firstItem="rm0-yi-Ktt" firstAttribute="leading" secondItem="uH2-Jt-M2p" secondAttribute="leading" id="Wsw-VW-WjV"/>
+                            <constraint firstItem="uxk-XY-noJ" firstAttribute="leading" secondItem="uH2-Jt-M2p" secondAttribute="leading" id="dAU-vP-iPH"/>
+                            <constraint firstItem="uxk-XY-noJ" firstAttribute="top" secondItem="uH2-Jt-M2p" secondAttribute="top" id="pE4-SZ-1C1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="compareButton" destination="cbu-Wk-KD5" id="XWj-YX-mCc"/>
                         <outlet property="eurosTextField" destination="iwd-C1-H5Y" id="gHy-5R-Ab0"/>
+                        <outlet property="loadingView" destination="uxk-XY-noJ" id="XN0-00-Nd7"/>
+                        <outlet property="spinner" destination="S9i-dl-oSW" id="SB7-4C-ZcV"/>
+                        <outlet property="stackView" destination="rm0-yi-Ktt" id="jMu-RO-KU4"/>
                         <outlet property="tableView" destination="Dji-3Y-zUP" id="jef-7C-1dG"/>
                     </connections>
                 </viewController>
@@ -104,12 +129,15 @@
     </scenes>
     <designables>
         <designable name="cbu-Wk-KD5">
-            <size key="intrinsicContentSize" width="74" height="44"/>
+            <size key="intrinsicContentSize" width="74" height="34"/>
         </designable>
     </designables>
     <resources>
         <namedColor name="FreeAgentBlue">
             <color red="0.046999998390674591" green="0.55299997329711914" blue="0.79600000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FreeAgentGreen">
+            <color red="0.48627450980392156" green="0.75686274509803919" blue="0.29019607843137257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
