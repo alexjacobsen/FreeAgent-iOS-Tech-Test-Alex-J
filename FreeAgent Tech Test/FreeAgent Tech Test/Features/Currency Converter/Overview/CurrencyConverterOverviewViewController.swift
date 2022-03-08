@@ -41,17 +41,24 @@ class CurrencyConverterOverviewViewController: UIViewController {
         self.navigationItem.title = viewModel.title
         let cellType = CurrencyConverterValueCell.self
         
+        /// Drive the items in the table view from the data source in the view model
         viewModel.items
             .drive(tableView.rx.items(cellIdentifier: cellType.reuseIdentifier, cellType: cellType)) { _, model, cell in
                 cell.model = model
             }
             .disposed(by: disposeBag)
         
+        /// Unselect cells determined by the view model
         viewModel.unselectRowAt.subscribe(onNext: { [weak self] index in
             let indexPath = IndexPath(row: index, section: 0)
             let cell = self?.tableView.cellForRow(at: indexPath) as? CurrencyConverterValueCell
             
             cell?.setSelected(false, animated: false)
+        })
+        
+        /// Unselect cells determined by the view model
+        viewModel.enableCompareButton.subscribe(onNext: { [weak self] enableButton in
+            self?.compareButton.isEnabled = enableButton
         })
     }
 }

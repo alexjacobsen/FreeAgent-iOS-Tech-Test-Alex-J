@@ -52,7 +52,7 @@
                                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-Wk-KD5">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-Wk-KD5" customClass="FreeAgentButton" customModule="FreeAgent_Tech_Test" customModuleProvider="target">
                                                 <rect key="frame" x="298" y="0.0" width="100" height="44"/>
                                                 <color key="backgroundColor" name="FreeAgentBlue"/>
                                                 <constraints>
@@ -102,6 +102,11 @@
             <point key="canvasLocation" x="-558" y="-14"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="cbu-Wk-KD5">
+            <size key="intrinsicContentSize" width="74" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="FreeAgentBlue">
             <color red="0.046999998390674591" green="0.55299997329711914" blue="0.79600000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

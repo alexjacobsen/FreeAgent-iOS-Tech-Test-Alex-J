@@ -7,6 +7,7 @@ protocol CurrencyConverterOverviewViewModelProtocol {
     var initialEurosValue: String { get }
     var items: Driver<[CurrencyConverterValueCellViewModel]> { get }
     var unselectRowAt: Observable<Int> { get }
+    var enableCompareButton: Observable<Bool> { get }
     
     func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool
 }
@@ -59,6 +60,7 @@ struct CurrencyConverterOverviewViewModel {
         let cellViewModelsObservable: Observable<[CurrencyConverterValueCellViewModel]> = cellViewModelsSource.switchLatest()
         let eurosValue = PublishSubject<Double>()
         let unselectRowsSource = PublishSubject<Int>()
+        let enableCompareSource = PublishSubject<Bool>()
         
         var selectedCellIndexes = [Int]()
         var cellViewModels = [CurrencyConverterValueCellViewModel]()
@@ -78,7 +80,7 @@ struct CurrencyConverterOverviewViewModel {
         
         let items = cellViewModelsObservable.share(replay: 1)
         
-        /// This code handles keeping track of selected rows and informing the VC about which rows to deselect in the TableView
+        /// This code handles keeping track of selected rows
         input.itemSelected.subscribe(onNext: {
             let selectedRow = $0.row
             
@@ -89,21 +91,32 @@ struct CurrencyConverterOverviewViewModel {
                 selectedCellIndexes.removeFirst()
             }
             selectedCellIndexes.append(selectedRow)
+            
+            if selectedCellIndexes.count == 2 {
+                // When there are 2 selected values enable the compare button
+                enableCompareSource.onNext(true)
+            }
+            
         })
         .disposed(by: disposeBag)
         
+        /// This code handles keeping track of deselected rows
         input.itemDeselected.subscribe(onNext: {
             let selectedRow = $0.row
             
             // Remove the row if it is already in the array
             if let selectedRowIndex = selectedCellIndexes.firstIndex(of: selectedRow) {
                 selectedCellIndexes.remove(at: selectedRowIndex)
-            } else { // Otherwise add it
-                fatalError("FF")
+            } else {
+                fatalError("The selected row should already be inside the array as its being deselected")
             }
+            
+            // When there are less than 2 selected values disable the compare button
+            enableCompareSource.onNext(false)
         })
         .disposed(by: disposeBag)
-                        
+                
+        /// This code handles updating the new euros value
         input.eurosValueEntered.subscribe(onNext: { eurosString in
             if let eurosString = eurosString,
                let euros = Double(eurosString) {
@@ -114,7 +127,8 @@ struct CurrencyConverterOverviewViewModel {
         output = Output(title: "Currency Converter",
                         initialEurosValue: "100.70",
                         items: items.asDriverOrAssertionFailure(),
-                        unselectRowAt: unselectRowsSource)
+                        unselectRowAt: unselectRowsSource,
+                        enableCompareButton: enableCompareSource)
     }
     
 }
@@ -126,6 +140,7 @@ extension CurrencyConverterOverviewViewModel {
         let initialEurosValue: String
         let items: Driver<[CurrencyConverterValueCellViewModel]>
         let unselectRowAt: Observable<Int>
+        let enableCompareButton: Observable<Bool>
     }
     
     struct UIInput {
@@ -151,6 +166,9 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
     
     var unselectRowAt: Observable<Int> {
         output.unselectRowAt
+    }
+    var enableCompareButton: Observable<Bool> {
+        output.enableCompareButton
     }
     
     func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool {

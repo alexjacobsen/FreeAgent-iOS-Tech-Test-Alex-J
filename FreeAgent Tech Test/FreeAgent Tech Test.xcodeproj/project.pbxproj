@@ -14,6 +14,7 @@
 		FABB351027D6588500A1CEB6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB350F27D6588500A1CEB6 /* main.swift */; };
 		FABB352327D6599100A1CEB6 /* MyApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB352227D6599100A1CEB6 /* MyApplication.swift */; };
 		FABB352E27D7961100A1CEB6 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB352D27D7961100A1CEB6 /* UIColor+Extensions.swift */; };
+		FABB353627D7AFE900A1CEB6 /* FreeAgentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB353527D7AFE900A1CEB6 /* FreeAgentButton.swift */; };
 		FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */; };
 		FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */; };
 		FAEA07E427D3AF1E00D38E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA07E227D3AF1E00D38E40 /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 		FABB350F27D6588500A1CEB6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FABB352227D6599100A1CEB6 /* MyApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApplication.swift; sourceTree = "<group>"; };
 		FABB352D27D7961100A1CEB6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		FABB353527D7AFE900A1CEB6 /* FreeAgentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentButton.swift; sourceTree = "<group>"; };
 		FAEA07D927D3AF1E00D38E40 /* FreeAgent Tech Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FreeAgent Tech Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,14 @@
 				DD0300DC2158325EE45C99FB /* Pods-FreeAgent Tech TestTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FABB353A27D7AFED00A1CEB6 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FABB353527D7AFE900A1CEB6 /* FreeAgentButton.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		FAEA07D027D3AF1E00D38E40 = {
@@ -222,6 +232,7 @@
 		FAEA083A27D3C27E00D38E40 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FABB353A27D7AFED00A1CEB6 /* UI */,
 				FAEA08BA27D537B900D38E40 /* Rx */,
 				FAEA086527D3CE9700D38E40 /* Classes */,
 				FAEA086127D3CB9900D38E40 /* Structs */,
@@ -579,6 +590,7 @@
 				FABB350B27D653AC00A1CEB6 /* Storyboardable.swift in Sources */,
 				FAEA088527D503DE00D38E40 /* CurrencyConverterOverviewViewModel.swift in Sources */,
 				FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */,
+				FABB353627D7AFE900A1CEB6 /* FreeAgentButton.swift in Sources */,
 				FAEA08AE27D519A000D38E40 /* CurrencyConverterValueCellViewModel.swift in Sources */,
 				FAEA087827D4FDFA00D38E40 /* CurrencyConverterOverviewViewController.swift in Sources */,
 				FAEA084C27D3C6D400D38E40 /* CurrencyConverterCoordinator.swift in Sources */,
