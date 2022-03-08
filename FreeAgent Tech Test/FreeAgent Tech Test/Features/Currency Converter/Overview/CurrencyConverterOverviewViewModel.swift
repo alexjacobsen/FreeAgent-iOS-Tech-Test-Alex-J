@@ -62,7 +62,16 @@ struct CurrencyConverterOverviewViewModel {
         let unselectRowsSource = PublishSubject<Int>()
         let enableCompareSource = PublishSubject<Bool>()
         
-        var selectedCellIndexes = [Int]()
+        var selectedCellIndexes = [Int]() {
+            didSet {
+                if selectedCellIndexes.count == 2 {
+                    // When there are 2 selected values enable the compare button
+                    enableCompareSource.onNext(true)
+                } else {
+                    enableCompareSource.onNext(false)
+                }
+            }
+        }
         var cellViewModels = [CurrencyConverterValueCellViewModel]()
             
         eurosValue.onNext(100.0)
@@ -91,12 +100,6 @@ struct CurrencyConverterOverviewViewModel {
                 selectedCellIndexes.removeFirst()
             }
             selectedCellIndexes.append(selectedRow)
-            
-            if selectedCellIndexes.count == 2 {
-                // When there are 2 selected values enable the compare button
-                enableCompareSource.onNext(true)
-            }
-            
         })
         .disposed(by: disposeBag)
         
@@ -110,9 +113,6 @@ struct CurrencyConverterOverviewViewModel {
             } else {
                 fatalError("The selected row should already be inside the array as its being deselected")
             }
-            
-            // When there are less than 2 selected values disable the compare button
-            enableCompareSource.onNext(false)
         })
         .disposed(by: disposeBag)
                 
@@ -121,6 +121,10 @@ struct CurrencyConverterOverviewViewModel {
             if let eurosString = eurosString,
                let euros = Double(eurosString) {
                 eurosValue.onNext(euros)
+            } else {
+                cellViewModelsSource.onNext(.just([]))
+                enableCompareSource.onNext(false)
+                
             }
         }).disposed(by: disposeBag)
         
