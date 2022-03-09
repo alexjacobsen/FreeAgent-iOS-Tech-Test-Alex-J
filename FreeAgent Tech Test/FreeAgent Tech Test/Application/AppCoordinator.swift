@@ -7,8 +7,6 @@ enum AppChildCoordinator {
 final class AppCoordinator: Coordinator {
 
     // MARK: - Properties -
-//    var dependencies: Dependencies
-//    internal let actions: Actions
     var rootViewController: UIViewController?
     var dependencies: Dependencies
     
