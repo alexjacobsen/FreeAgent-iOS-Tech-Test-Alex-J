@@ -53,7 +53,7 @@ struct CurrencyConverterOverviewViewModel {
     
         // MARK:- Networking
         
-        let result: Observable<Currency> = APICalling().send(apiRequest: APIRequest())
+        let result: Observable<Currency> = LatestExchangeRatesAPICall().send()
         
         // Success
         result.subscribe(onNext: { currency in
@@ -207,8 +207,12 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
     
     func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool {
         
+        let characterLimit = 10
+        let numberOfDotsLimit = 1
+        let numberOfDecimalDigitsLimit = 2
+        
         let decimalSeperator = Locale.current.decimalSeparator ?? "."
-        var allowedCharacters = "123456789"
+        var allowedCharacters = "1234567890"
         allowedCharacters.append(decimalSeperator)
         let numberSet = CharacterSet(charactersIn: allowedCharacters).inverted
 
@@ -227,8 +231,12 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
         } else {
             numberOfDecimalDigits = 0
         }
+        
+        let isValid = numberOfDots <= numberOfDotsLimit &&
+            numberOfDecimalDigits <= numberOfDecimalDigitsLimit &&
+            newText.count <= characterLimit
 
-        return numberOfDots <= 1 && numberOfDecimalDigits <= 2
+        return isValid
     }
     
 }
