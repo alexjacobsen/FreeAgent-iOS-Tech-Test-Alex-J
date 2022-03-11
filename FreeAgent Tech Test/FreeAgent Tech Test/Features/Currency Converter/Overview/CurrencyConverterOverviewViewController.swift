@@ -98,6 +98,10 @@ extension CurrencyConverterOverviewViewController: UITextFieldDelegate {
 
 extension CurrencyConverterOverviewViewController: Storyboardable {
     
+    static var storyboardIdentifier: String? {
+        "CurrencyConverterOverview"
+    }
+    
     static var storyboardName: String {
         "CurrencyConverter"
     }

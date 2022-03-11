@@ -50,7 +50,10 @@ internal extension AppCoordinator {
         case .currencyConverter:
             
             let navigationController = UINavigationController()
-            let currencyConverterCoordinator = CurrencyConverterCoordinator(dependencies: .init(navigationController: navigationController))
+            let fixerCurrencyClient = FixerIOClient()
+            
+            let currencyConverterCoordinator = CurrencyConverterCoordinator(dependencies: .init(navigationController: navigationController,
+                                                                                                client: fixerCurrencyClient))
             
             currencyConverterCoordinator.start()
             

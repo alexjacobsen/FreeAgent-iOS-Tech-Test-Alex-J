@@ -14,7 +14,7 @@ protocol CurrencyConverterOverviewViewModelProtocol {
 }
 
 private enum TableItem {
-    case currencyValueCell(_ viewModel: CurrencyConverterOverviewCellViewModel)
+    case currencyOverviewCell(_ viewModel: CurrencyConverterOverviewCellViewModel)
 }
 
 struct CurrencyConverterOverviewViewModel {
@@ -36,7 +36,7 @@ struct CurrencyConverterOverviewViewModel {
         let eurosValue = PublishSubject<Double>()
         
         // MARK:- Other Properties
-        var euroCurrency: Currency?
+        var baseCurrency: Currency?
         var cellViewModels = [CurrencyConverterOverviewCellViewModel]()
         var selectedCellIndexes = [Int]() {
             didSet {
@@ -51,15 +51,11 @@ struct CurrencyConverterOverviewViewModel {
     
         // MARK:- Networking
         
-        let result: Observable<Currency> = FixerIOClient().getLastestExchangeRates(symbols: [.usd, .jpy,
-                                                                                             .gbp, .aud,
-                                                                                             .cad, .chf,
-                                                                                             .chf, .cny,
-                                                                                             .sek, .nzd])
+        let result: Observable<Currency> = dependencies.client.getLastestExchangeRates(symbols: [.usd, .jpy, .gbp, .aud, .cad, .chf, .chf, .cny, .sek, .nzd])
         
         // Success
         result.subscribe(onNext: { currency in
-            euroCurrency = currency
+            baseCurrency = currency
             hideLoadingView.onNext(())
         }).disposed(by: disposeBag)
         
@@ -73,7 +69,7 @@ struct CurrencyConverterOverviewViewModel {
         
         /// Subcribing to changes of the euros value allows us to build the datasource in the fly with the changes typed into the textfield
         eurosValue.subscribe(onNext: { eurosValue in
-            guard let euroCurrency = euroCurrency else { return }
+            guard let euroCurrency = baseCurrency else { return }
                         
             cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterOverviewCellViewModel in
                 CurrencyConverterOverviewCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
@@ -129,14 +125,17 @@ struct CurrencyConverterOverviewViewModel {
             var currenciesToCompare = [CurrencySymbol]()
                         
             selectedCellIndexes.forEach {
-                if let currencyAbreviation = euroCurrency?.rates[$0].title {
+                if let currencyAbreviation = baseCurrency?.rates[$0].title {
                     currenciesToCompare.append(currencyAbreviation)
                 }
                 
             }
             
             if currenciesToCompare.count == 2 {
-                dependencies.navigateToComparison(currenciesToCompare)
+                guard let baseCurrencySymbol = baseCurrency?.base else { fatalError("There should be a base currency") }
+                dependencies.navigateToComparison(.init(baseCurrencySymbol: baseCurrencySymbol,
+                                                        currencyOneSymbol: currenciesToCompare[0],
+                                                        currencyTwoSymbol: currenciesToCompare[1]))
             } else {
                 fatalError("It should not be possible to get here if there are notn exactly 2 currencies selected")
             }
@@ -160,7 +159,8 @@ extension CurrencyConverterOverviewViewModel {
     
     struct Dependencies {
         let title: String
-        let navigateToComparison: ([CurrencySymbol]) -> Void
+        let navigateToComparison: (CurrencyConverterComparisonConfig) -> Void
+        let client: FixerIOClient
     }
 }
 

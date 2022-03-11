@@ -6,10 +6,11 @@ class CurrencyConverterComparisonViewController: UIViewController {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet private weak var filterButton: UIButton!
+    @IBOutlet private weak var sortButton: UIButton!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(types: [CurrencyConverterComparisonCell.self])
+            tab;
         }
     }
     
@@ -23,7 +24,12 @@ class CurrencyConverterComparisonViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let input = CurrencyConverterComparisonViewModel.UIInput(sortButtonTapped: sortButton.rx.tap.asObservable())
+        
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = 50
+        
         bind(viewModelFactory(input))
     }
     
@@ -59,10 +65,24 @@ class CurrencyConverterComparisonViewController: UIViewController {
                 cell.model = model
             }
             .disposed(by: disposeBag)
+        
+        /// Hide the loading view when determined by the view model
+        viewModel.hideLoadingView.subscribe(onNext: { [weak self] in
+            self?.hideLoadingView()
+        })
+        
+        /// Display an allert with the config passed by the view model
+        viewModel.showAlert.subscribe(onNext: { [weak self] config in
+            self?.displayAlert(config: config)
+        })
     }
 }
 
 extension CurrencyConverterComparisonViewController: Storyboardable {
+    
+    static var storyboardIdentifier: String? {
+        "CurrencyConverterComparison"
+    }
     
     static var storyboardName: String {
         "CurrencyConverter"

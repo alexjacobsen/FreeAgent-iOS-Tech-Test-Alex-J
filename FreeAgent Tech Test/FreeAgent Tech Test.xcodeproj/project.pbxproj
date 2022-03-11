@@ -28,6 +28,8 @@
 		FADAB61D27DB7E3C001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB61C27DB7E3C001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift */; };
 		FADAB62E27DB986A001AE5B5 /* CurrencyConverterComparisonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB62D27DB986A001AE5B5 /* CurrencyConverterComparisonViewController.swift */; };
 		FADAB63327DB99C6001AE5B5 /* CurrencyConverterComparisonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB63227DB99C6001AE5B5 /* CurrencyConverterComparisonViewModel.swift */; };
+		FADAB63827DBBD5F001AE5B5 /* CurrencyConverterComparisonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB63727DBBD5F001AE5B5 /* CurrencyConverterComparisonHeaderView.swift */; };
+		FADAB63E27DBBD82001AE5B5 /* CurrencyConverterComparisonHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADAB63D27DBBD82001AE5B5 /* CurrencyConverterComparisonHeaderView.xib */; };
 		FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */; };
 		FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */; };
 		FAEA07E427D3AF1E00D38E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA07E227D3AF1E00D38E40 /* Main.storyboard */; };
@@ -94,6 +96,8 @@
 		FADAB61C27DB7E3C001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterComparisonCellViewModel.swift; sourceTree = "<group>"; };
 		FADAB62D27DB986A001AE5B5 /* CurrencyConverterComparisonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterComparisonViewController.swift; sourceTree = "<group>"; };
 		FADAB63227DB99C6001AE5B5 /* CurrencyConverterComparisonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterComparisonViewModel.swift; sourceTree = "<group>"; };
+		FADAB63727DBBD5F001AE5B5 /* CurrencyConverterComparisonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterComparisonHeaderView.swift; sourceTree = "<group>"; };
+		FADAB63D27DBBD82001AE5B5 /* CurrencyConverterComparisonHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyConverterComparisonHeaderView.xib; sourceTree = "<group>"; };
 		FAEA07D927D3AF1E00D38E40 /* FreeAgent Tech Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FreeAgent Tech Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 		FADAB60D27DB7D9A001AE5B5 /* Table View */ = {
 			isa = PBXGroup;
 			children = (
+				FADAB63C27DBBD67001AE5B5 /* Header */,
 				FADAB60E27DB7DC4001AE5B5 /* Cells */,
 			);
 			path = "Table View";
@@ -231,6 +236,15 @@
 				FADAB61C27DB7E3C001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		FADAB63C27DBBD67001AE5B5 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				FADAB63727DBBD5F001AE5B5 /* CurrencyConverterComparisonHeaderView.swift */,
+				FADAB63D27DBBD82001AE5B5 /* CurrencyConverterComparisonHeaderView.xib */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		FAEA07D027D3AF1E00D38E40 = {
@@ -524,6 +538,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADAB63E27DBBD82001AE5B5 /* CurrencyConverterComparisonHeaderView.xib in Resources */,
 				FAEA07E927D3AF1F00D38E40 /* LaunchScreen.storyboard in Resources */,
 				FAEA07E627D3AF1F00D38E40 /* Assets.xcassets in Resources */,
 				FAEA087D27D4FE1700D38E40 /* CurrencyConverter.storyboard in Resources */,
@@ -700,6 +715,7 @@
 				FABB355627D7D02D00A1CEB6 /* Currency.swift in Sources */,
 				FADAB61D27DB7E3C001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift in Sources */,
 				FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */,
+				FADAB63827DBBD5F001AE5B5 /* CurrencyConverterComparisonHeaderView.swift in Sources */,
 				FAEA08B627D536FF00D38E40 /* ObservableConvertible+RxExtensions.swift in Sources */,
 				FAD42FEE27D8F83E002FF179 /* APICall.swift in Sources */,
 				FAEA084227D3C38D00D38E40 /* Error.swift in Sources */,

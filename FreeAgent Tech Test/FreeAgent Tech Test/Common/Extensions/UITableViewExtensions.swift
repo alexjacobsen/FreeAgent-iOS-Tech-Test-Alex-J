@@ -23,4 +23,9 @@ public extension UITableView {
             register(nib, forCellReuseIdentifier: $0.reuseIdentifier)
         }
     }
+    
+    func registerReuseView(type: ReusableView.Type, in bundle: Bundle? = nil) {
+        let nib = UINib(nibName: type.reuseIdentifier, bundle: bundle)
+        register(nib, forHeaderFooterViewReuseIdentifier: type.reuseIdentifier)
+    }
 }
