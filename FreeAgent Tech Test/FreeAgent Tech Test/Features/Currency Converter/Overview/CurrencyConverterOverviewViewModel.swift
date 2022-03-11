@@ -4,8 +4,7 @@ import UIKit
 
 protocol CurrencyConverterOverviewViewModelProtocol {
     var title: String { get }
-    var initialEurosValue: String { get }
-    var items: Driver<[CurrencyConverterValueCellViewModel]> { get }
+    var items: Driver<[CurrencyConverterOverviewCellViewModel]> { get }
     var unselectRowAt: Observable<Int> { get }
     var enableCompareButton: Observable<Bool> { get }
     var hideLoadingView: Observable<Void> { get }
@@ -14,8 +13,8 @@ protocol CurrencyConverterOverviewViewModelProtocol {
     func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool
 }
 
-enum TableItem {
-    case currencyValueCell(_ viewModel: CurrencyConverterValueCellViewModel)
+private enum TableItem {
+    case currencyValueCell(_ viewModel: CurrencyConverterOverviewCellViewModel)
 }
 
 struct CurrencyConverterOverviewViewModel {
@@ -23,12 +22,11 @@ struct CurrencyConverterOverviewViewModel {
     private let disposeBag = DisposeBag()
     private let output: Output
         
-    init(input: UIInput,
-         navigateToComparison: @escaping ([CurrencyAbbreviation]) -> Void) {
+    init(input: UIInput, dependencies: Dependencies) {
         
         // MARK:- Observables
-        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterValueCellViewModel]>>()
-        let cellViewModelsObservable: Observable<[CurrencyConverterValueCellViewModel]> = cellViewModelsSource.switchLatest()
+        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterOverviewCellViewModel]>>()
+        let cellViewModelsObservable: Observable<[CurrencyConverterOverviewCellViewModel]> = cellViewModelsSource.switchLatest()
         
         let unselectRowsSource = PublishSubject<Int>()
         let enableCompareSource = PublishSubject<Bool>()
@@ -39,7 +37,7 @@ struct CurrencyConverterOverviewViewModel {
         
         // MARK:- Other Properties
         var euroCurrency: Currency?
-        var cellViewModels = [CurrencyConverterValueCellViewModel]()
+        var cellViewModels = [CurrencyConverterOverviewCellViewModel]()
         var selectedCellIndexes = [Int]() {
             didSet {
                 if selectedCellIndexes.count == 2 {
@@ -53,7 +51,11 @@ struct CurrencyConverterOverviewViewModel {
     
         // MARK:- Networking
         
-        let result: Observable<Currency> = LatestExchangeRatesAPICall().send()
+        let result: Observable<Currency> = FixerIOClient().getLastestExchangeRates(symbols: [.usd, .jpy,
+                                                                                             .gbp, .aud,
+                                                                                             .cad, .chf,
+                                                                                             .chf, .cny,
+                                                                                             .sek, .nzd])
         
         // Success
         result.subscribe(onNext: { currency in
@@ -73,8 +75,8 @@ struct CurrencyConverterOverviewViewModel {
         eurosValue.subscribe(onNext: { eurosValue in
             guard let euroCurrency = euroCurrency else { return }
                         
-            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterValueCellViewModel in
-                CurrencyConverterValueCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
+            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterOverviewCellViewModel in
+                CurrencyConverterOverviewCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
             }
                         
             cellViewModelsSource.onNext(.just(cellViewModels))
@@ -124,7 +126,7 @@ struct CurrencyConverterOverviewViewModel {
         .disposed(by: disposeBag)
         
         input.compareButtonTapped.subscribe(onNext: {
-            var currenciesToCompare = [CurrencyAbbreviation]()
+            var currenciesToCompare = [CurrencySymbol]()
                         
             selectedCellIndexes.forEach {
                 if let currencyAbreviation = euroCurrency?.rates[$0].title {
@@ -134,7 +136,7 @@ struct CurrencyConverterOverviewViewModel {
             }
             
             if currenciesToCompare.count == 2 {
-                navigateToComparison(currenciesToCompare)
+                dependencies.navigateToComparison(currenciesToCompare)
             } else {
                 fatalError("It should not be possible to get here if there are notn exactly 2 currencies selected")
             }
@@ -144,8 +146,7 @@ struct CurrencyConverterOverviewViewModel {
         
         
         // MARK:- Outputs
-        output = Output(title: "Currency Converter",
-                        initialEurosValue: "100.70",
+        output = Output(title: dependencies.title,
                         items: items.asDriverOrAssertionFailure(),
                         unselectRowAt: unselectRowsSource,
                         enableCompareButton: enableCompareSource,
@@ -157,10 +158,17 @@ struct CurrencyConverterOverviewViewModel {
 
 extension CurrencyConverterOverviewViewModel {
     
+    struct Dependencies {
+        let title: String
+        let navigateToComparison: ([CurrencySymbol]) -> Void
+    }
+}
+
+extension CurrencyConverterOverviewViewModel {
+    
     struct Output {
         let title: String
-        let initialEurosValue: String
-        let items: Driver<[CurrencyConverterValueCellViewModel]>
+        let items: Driver<[CurrencyConverterOverviewCellViewModel]>
         let unselectRowAt: Observable<Int>
         let enableCompareButton: Observable<Bool>
         let hideLoadingView: Observable<Void>
@@ -181,11 +189,7 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
         output.title
     }
     
-    var initialEurosValue: String {
-        output.initialEurosValue
-    }
-    
-    var items: Driver<[CurrencyConverterValueCellViewModel]> {
+    var items: Driver<[CurrencyConverterOverviewCellViewModel]> {
         output.items
     }
     

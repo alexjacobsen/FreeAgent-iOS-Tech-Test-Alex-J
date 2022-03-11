@@ -30,9 +30,9 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Overview/CurrencyConverterOverviewViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "init(input:navigateToComparison:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "init(input:dependencies:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -78,9 +78,9 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Overview/CurrencyConverterOverviewViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "init(input:navigateToComparison:)"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "init(input:dependencies:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -126,13 +126,13 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Overview/CurrencyConverterOverviewViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "init(input:navigateToComparison:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "init(input:dependencies:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A82C4A05-60F1-4BE6-A35F-02F8D31A1982 - 5dcd50eba1f8b699"
+                  uuid = "A82C4A05-60F1-4BE6-A35F-02F8D31A1982 - 5dcd50eba1fb49fe"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -142,12 +142,12 @@
                   urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Overview/CurrencyConverterOverviewViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
                   offsetFromSymbolStart = "120">
                </Location>
                <Location
-                  uuid = "A82C4A05-60F1-4BE6-A35F-02F8D31A1982 - 5b956c643bf57273"
+                  uuid = "A82C4A05-60F1-4BE6-A35F-02F8D31A1982 - 5b956c643bf68d14"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -157,8 +157,8 @@
                   urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Overview/CurrencyConverterOverviewViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
@@ -174,9 +174,9 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Overview/CurrencyConverterOverviewViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "init(input:navigateToComparison:)"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "init(input:dependencies:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -231,94 +231,46 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DE1DA3B5-251D-45C4-807C-477AFC87F960"
+            uuid = "169C365C-94A3-45F7-85EE-68EA649F2BBF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Historical Exchange Rates/HistoricalExchangeRatesAPICall.swift"
+            filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Client/FixerIOClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "send(for:base:symbols:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FD666F58-C0B2-4C52-B9B1-868632A884AE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Historical Exchange Rates/HistoricalExchangeRatesAPICall.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "send(for:base:symbols:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "07135FDD-B6F9-494A-9A96-6EC14EEF7002"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Historical Exchange Rates/HistoricalExchangeRatesAPICall.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "send(for:base:symbols:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E0E9014F-E29B-41F4-B98D-D020F186B2C1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Historical Exchange Rates/HistoricalExchangeRatesAPICall.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "send(for:base:symbols:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getHistoricalExchangeRates(for:base:symbols:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E0E9014F-E29B-41F4-B98D-D020F186B2C1 - 62b82f49c3519f22"
+                  uuid = "169C365C-94A3-45F7-85EE-68EA649F2BBF - 45b6fccf8122277e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "FreeAgent_Tech_Test.HistoricalExchangeRatesAPICall.send&lt;A where A: Swift.Decodable, A: Swift.Encodable&gt;(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencyAbbreviation, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencyAbbreviation&gt;) -&gt; RxSwift.Observable&lt;A&gt;"
+                  symbolName = "FreeAgent_Tech_Test.FixerIOClient.getHistoricalExchangeRates&lt;A where A: Swift.Decodable, A: Swift.Encodable&gt;(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencyAbbreviation, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencyAbbreviation&gt;) -&gt; RxSwift.Observable&lt;A&gt;"
                   moduleName = "FreeAgent Tech Test"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Historical%20Exchange%20Rates/HistoricalExchangeRatesAPICall.swift"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
                   offsetFromSymbolStart = "1703">
                </Location>
                <Location
-                  uuid = "E0E9014F-E29B-41F4-B98D-D020F186B2C1 - a0a5550f3042dbc2"
+                  uuid = "169C365C-94A3-45F7-85EE-68EA649F2BBF - 7577ed9d6f043fba"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (RxSwift.AnyObserver&lt;A&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_Test.HistoricalExchangeRatesAPICall.send&lt;A where A: Swift.Decodable, A: Swift.Encodable&gt;(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencyAbbreviation, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencyAbbreviation&gt;) -&gt; RxSwift.Observable&lt;A&gt;"
+                  symbolName = "closure #2 (RxSwift.AnyObserver&lt;A&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_Test.FixerIOClient.getHistoricalExchangeRates&lt;A where A: Swift.Decodable, A: Swift.Encodable&gt;(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencyAbbreviation, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencyAbbreviation&gt;) -&gt; RxSwift.Observable&lt;A&gt;"
                   moduleName = "FreeAgent Tech Test"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Historical%20Exchange%20Rates/HistoricalExchangeRatesAPICall.swift"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "22"
-                  endingLineNumber = "22"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
                   offsetFromSymbolStart = "183">
                </Location>
             </Locations>

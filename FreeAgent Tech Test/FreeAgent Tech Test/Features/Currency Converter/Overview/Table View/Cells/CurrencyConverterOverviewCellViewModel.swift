@@ -1,6 +1,6 @@
 import Foundation
 
-class CurrencyConverterValueCellViewModel {
+class CurrencyConverterOverviewCellViewModel {
     
     let title: String
     let value: String

@@ -1,12 +1,12 @@
 import UIKit
 
-class CurrencyConverterValueCell: UITableViewCell {
+class CurrencyConverterOverviewCell: UITableViewCell {
     
     // MARK: - Outlets
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
     
-    var model: CurrencyConverterValueCellViewModel? {
+    var model: CurrencyConverterOverviewCellViewModel? {
         didSet {
             updateUI()
         }
@@ -29,10 +29,11 @@ class CurrencyConverterValueCell: UITableViewCell {
     
 }
 
-extension CurrencyConverterValueCell {
+extension CurrencyConverterOverviewCell {
     
     func updateUI() {
         guard let model = self.model else { return }
+        
         titleLabel.text = model.title
         valueLabel.text = model.value
     }
