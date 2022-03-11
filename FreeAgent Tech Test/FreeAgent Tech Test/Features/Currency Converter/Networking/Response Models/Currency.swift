@@ -1,6 +1,7 @@
 
 struct Currency: Codable {
     let success: Bool
+    let historical: Bool? // Only will be recieved during a historical API call
     let timestamp: Int
     let base: CurrencyAbbreviation
     let date: String
@@ -18,6 +19,7 @@ struct Currency: Codable {
         }
         
         self.success = try container.decode(Bool.self, forKey: .success)
+        self.historical = try? container.decode(Bool?.self, forKey: .historical)
         self.timestamp = try container.decode(Int.self, forKey: .timestamp)
         self.base = try container.decode(CurrencyAbbreviation.self, forKey: .base)
         self.date = try container.decode(String.self, forKey: .date)

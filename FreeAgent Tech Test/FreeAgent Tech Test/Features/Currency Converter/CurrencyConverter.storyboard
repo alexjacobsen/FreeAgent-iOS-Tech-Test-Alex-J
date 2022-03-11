@@ -129,7 +129,7 @@
     </scenes>
     <designables>
         <designable name="cbu-Wk-KD5">
-            <size key="intrinsicContentSize" width="74" height="34"/>
+            <size key="intrinsicContentSize" width="74" height="44"/>
         </designable>
     </designables>
     <resources>

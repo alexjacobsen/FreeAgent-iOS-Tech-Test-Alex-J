@@ -5,8 +5,9 @@ class LatestExchangeRatesAPICall {
     // create a method for calling api which is return a Observable
     func send<Currency: Codable>() -> Observable<Currency> {
         let apiRequest = APICall(baseURLString: "\(String.latestExchangeRatesEndpoint)",
-                                    method: .GET,
-                                    parameters: [.init(name: "\(String.apiKeyParameterTitle)", value: "\(String.apiKeyParameterValue)")])
+                                 method: .GET,
+                                 parameters: [.init(name: "\(String.apiKeyParameterTitle)",
+                                                    value: "\(String.apiKeyParameterValue)")])
         
         return Observable<Currency>.create { observer in
             let request = apiRequest.request()

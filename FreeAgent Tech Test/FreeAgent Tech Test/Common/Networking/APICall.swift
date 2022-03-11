@@ -27,4 +27,8 @@ class APICall {
 extension String {
     static let apiKeyParameterTitle = "access_key"
     static let apiKeyParameterValue = "2aa762c48b2a48541c0b641039e22527"
+    
+    static let apiKeyBaseCurrencyParameterTitle = "base"
+    
+    static let currencySymbolsParameterTitle = "symbols"
 }
