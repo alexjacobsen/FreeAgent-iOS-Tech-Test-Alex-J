@@ -16,4 +16,8 @@ extension AlertConfig {
                                                                                                                                           style: .cancel,
                                                                                                                                           handler: nil)])
     }
+    
+    static func sortCurrencyComparisonAlertConfig (actions: [UIAlertAction]) -> AlertConfig {
+        return .init(title: "Sort", message: "SORT EM", actions: actions)
+    }
 }

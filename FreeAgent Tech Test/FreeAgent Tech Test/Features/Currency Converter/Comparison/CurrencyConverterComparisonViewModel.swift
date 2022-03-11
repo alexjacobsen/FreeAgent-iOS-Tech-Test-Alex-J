@@ -5,6 +5,7 @@ import UIKit
 protocol CurrencyConverterComparisonViewModelProtocol {
     var title: String { get }
     var items: Driver<[CurrencyConverterComparisonCellViewModel]> { get }
+    var headerViewModel: CurrencyConverterComparisonHeaderViewModel { get }
     var hideLoadingView: Observable<Void> { get }
     var showAlert: Observable<AlertConfig> { get }
 }
@@ -23,6 +24,7 @@ struct CurrencyConverterComparisonViewModel {
     
     private let disposeBag = DisposeBag()
     private let output: Output
+    private let numberOfPastDays = 5
         
     init(input: UIInput, dependencies: Dependencies) {
         
@@ -32,6 +34,7 @@ struct CurrencyConverterComparisonViewModel {
         
         let hideLoadingView = PublishSubject<Void>()
         let showAlert = PublishSubject<AlertConfig>()
+        let showSortMenu = PublishSubject<AlertConfig>()
                 
         // MARK:- Other Properties
         var cellViewModels = [CurrencyConverterComparisonCellViewModel]()
@@ -39,7 +42,7 @@ struct CurrencyConverterComparisonViewModel {
         // MARK:- Networking
         
         let apiResultsObservable = getHistoricalRates(client: dependencies.client,
-                                                      numberOfPastDays: 2,
+                                                      numberOfPastDays: numberOfPastDays,
                                                       config: dependencies.config)
         
         // Success
@@ -65,7 +68,8 @@ struct CurrencyConverterComparisonViewModel {
         // MARK:- Inputs
         
         input.sortButtonTapped.subscribe(onNext: {
-            //TODO: add sort functionality
+            // TODO: finish sort functionality
+//            showSortMenu.onNext(AlertConfig.sortCurrencyComparisonAlertConfig(actions: sortMenuActions()))
         })
         .disposed(by: disposeBag)
         
@@ -73,6 +77,9 @@ struct CurrencyConverterComparisonViewModel {
         // MARK:- Outputs
         output = Output(title: dependencies.title,
                         items: items.asDriverOrAssertionFailure(),
+                        headerViewModel: .init(dateTitle: "Date",
+                                               currencyOneTitle: dependencies.config.currencyOneSymbol.rawValue,
+                                               currencyTwoTitle: dependencies.config.currencyTwoSymbol.rawValue),
                         hideLoadingView: hideLoadingView,
                         showAlert: showAlert)
     }
@@ -92,9 +99,31 @@ private func getHistoricalRates(client: FixerIOClient,
                                                              base: config.baseCurrencySymbol,
                                                              symbols: [config.currencyOneSymbol, config.currencyTwoSymbol]))
     }
-        
+    
     return Observable.zip(observables)
 }
+
+// TODO: finish sort functionality
+//private func sortMenuActions(cellViewModels: [CurrencyConverterComparisonCellViewModel]) -> ([UIAlertAction], [CurrencyConverterComparisonCellViewModel]) {
+//
+////    UIAlertAction(title: "Date - Ascending",
+////                  style: .default,
+////                  handler: { _ in
+////                    return sortByDateAscending(cellViewModels: cellViewModels)
+////                  })
+////    return
+//}
+
+//private func sortByDateAscending(cellViewModels: [CurrencyConverterComparisonCellViewModel]) -> (() -> [CurrencyConverterComparisonCellViewModel]) {
+//    var cellViewModels = cellViewModels
+//    let formatter = DateFormatter()
+//    cellViewModels.sort { formatter.date(from: $0.date)! < formatter.date(from: $1.date)! }
+//}
+//private func sortByDateDescending(cellViewModels: [CurrencyConverterComparisonCellViewModel]) -> (() -> [CurrencyConverterComparisonCellViewModel]) {
+//    var cellViewModels = cellViewModels
+//    let formatter = DateFormatter()
+//    cellViewModels.sort { formatter.date(from: $0.date)! > formatter.date(from: $1.date)! }
+//}
 
 extension CurrencyConverterComparisonViewModel {
     
@@ -110,6 +139,7 @@ extension CurrencyConverterComparisonViewModel {
     struct Output {
         let title: String
         let items: Driver<[CurrencyConverterComparisonCellViewModel]>
+        let headerViewModel: CurrencyConverterComparisonHeaderViewModel
         let hideLoadingView: Observable<Void>
         let showAlert: Observable<AlertConfig>
     }
@@ -127,6 +157,10 @@ extension CurrencyConverterComparisonViewModel: CurrencyConverterComparisonViewM
     
     var items: Driver<[CurrencyConverterComparisonCellViewModel]> {
         output.items
+    }
+    
+    var headerViewModel: CurrencyConverterComparisonHeaderViewModel {
+        output.headerViewModel
     }
     
     var hideLoadingView: Observable<Void> {

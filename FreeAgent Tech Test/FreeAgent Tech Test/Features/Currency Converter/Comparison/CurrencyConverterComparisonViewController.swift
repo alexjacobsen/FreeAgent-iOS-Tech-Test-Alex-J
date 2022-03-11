@@ -10,12 +10,12 @@ class CurrencyConverterComparisonViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(types: [CurrencyConverterComparisonCell.self])
-            tab;
+            tableView.registerReuseView(type: CurrencyConverterComparisonHeaderView.self)
         }
     }
     
     var viewModelFactory: (CurrencyConverterComparisonViewModel.UIInput) -> CurrencyConverterComparisonViewModelProtocol = { _ in
-        fatalError("`viewModelFactory` must be assigned after initialising viewController")
+        fatalError("viewModelFactory` must be assigned after initialising viewController")
     }
     
     // MARK: - Properties
@@ -26,11 +26,25 @@ class CurrencyConverterComparisonViewController: UIViewController {
         super.viewDidLoad()
         
         let input = CurrencyConverterComparisonViewModel.UIInput(sortButtonTapped: sortButton.rx.tap.asObservable())
+                
+        bind(viewModelFactory(input))
+        
+        setUpTableView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.applyAutolayoutHeaderFooterView()
+    }
+    
+    private func setUpTableView() {
+        let headerView = CurrencyConverterComparisonHeaderView()
+        headerView.model = viewModel.headerViewModel
+        tableView.tableHeaderView = headerView
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = 50
         
-        bind(viewModelFactory(input))
     }
     
     private func hideLoadingView() {

@@ -207,7 +207,7 @@
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ilq-cO-XTf">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="49" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ilq-cO-XTf">
                                         <rect key="frame" x="0.0" y="160" width="414" height="658"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                     </tableView>

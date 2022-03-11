@@ -28,4 +28,30 @@ public extension UITableView {
         let nib = UINib(nibName: type.reuseIdentifier, bundle: bundle)
         register(nib, forHeaderFooterViewReuseIdentifier: type.reuseIdentifier)
     }
+    
+    func applyAutolayoutHeaderFooterView() {
+
+        // header view
+        if let headerView = tableHeaderView,
+            let updatedHedaerView = resize(headerFooterView: headerView) {
+            tableHeaderView = updatedHedaerView
+        }
+
+        // footer view
+        if let footerView = tableFooterView,
+            let updatedFooterView = resize(headerFooterView: footerView) {
+            tableFooterView = updatedFooterView
+        }
+    }
+    
+    func resize(headerFooterView: UIView) -> UIView? {
+        let size = headerFooterView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+        if headerFooterView.frame.size.height != size.height {
+            headerFooterView.frame.size.height = size.height
+            return headerFooterView
+        }
+
+        return nil
+    }
 }
