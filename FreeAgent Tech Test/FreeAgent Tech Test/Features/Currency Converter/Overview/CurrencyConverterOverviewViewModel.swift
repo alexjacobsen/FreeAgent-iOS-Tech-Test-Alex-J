@@ -4,8 +4,7 @@ import UIKit
 
 protocol CurrencyConverterOverviewViewModelProtocol {
     var title: String { get }
-    var initialEurosValue: String { get }
-    var items: Driver<[CurrencyConverterValueCellViewModel]> { get }
+    var items: Driver<[CurrencyConverterOverviewCellViewModel]> { get }
     var unselectRowAt: Observable<Int> { get }
     var enableCompareButton: Observable<Bool> { get }
     var hideLoadingView: Observable<Void> { get }
@@ -14,8 +13,8 @@ protocol CurrencyConverterOverviewViewModelProtocol {
     func isValidInput(currentText: String?, inputText: String, range: NSRange) -> Bool
 }
 
-enum TableItem {
-    case currencyValueCell(_ viewModel: CurrencyConverterValueCellViewModel)
+private enum TableItem {
+    case currencyOverviewCell(_ viewModel: CurrencyConverterOverviewCellViewModel)
 }
 
 struct CurrencyConverterOverviewViewModel {
@@ -23,12 +22,11 @@ struct CurrencyConverterOverviewViewModel {
     private let disposeBag = DisposeBag()
     private let output: Output
         
-    init(input: UIInput,
-         navigateToComparison: @escaping ([CurrencyAbbreviation]) -> Void) {
+    init(input: UIInput, dependencies: Dependencies) {
         
         // MARK:- Observables
-        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterValueCellViewModel]>>()
-        let cellViewModelsObservable: Observable<[CurrencyConverterValueCellViewModel]> = cellViewModelsSource.switchLatest()
+        let cellViewModelsSource = dependencies.cellViewModelsSource
+        let cellViewModelsObservable: Observable<[CurrencyConverterOverviewCellViewModel]> = cellViewModelsSource.switchLatest()
         
         let unselectRowsSource = PublishSubject<Int>()
         let enableCompareSource = PublishSubject<Bool>()
@@ -38,8 +36,8 @@ struct CurrencyConverterOverviewViewModel {
         let eurosValue = PublishSubject<Double>()
         
         // MARK:- Other Properties
-        var euroCurrency: Currency?
-        var cellViewModels = [CurrencyConverterValueCellViewModel]()
+        var baseCurrency: Currency?
+        var cellViewModels = [CurrencyConverterOverviewCellViewModel]()
         var selectedCellIndexes = [Int]() {
             didSet {
                 if selectedCellIndexes.count == 2 {
@@ -53,11 +51,20 @@ struct CurrencyConverterOverviewViewModel {
     
         // MARK:- Networking
         
-        let result: Observable<Currency> = LatestExchangeRatesAPICall().send()
+        let result: Observable<Currency> = dependencies.client.getLastestExchangeRates(base: .eur, symbols: [.usd,
+                                                                                                             .eur,
+                                                                                                             .jpy,
+                                                                                                             .gbp,
+                                                                                                             .aud,
+                                                                                                             .cad,
+                                                                                                             .chf,
+                                                                                                             .cny,
+                                                                                                             .sek,
+                                                                                                             .nzd])
         
         // Success
         result.subscribe(onNext: { currency in
-            euroCurrency = currency
+            baseCurrency = currency
             hideLoadingView.onNext(())
         }).disposed(by: disposeBag)
         
@@ -71,10 +78,10 @@ struct CurrencyConverterOverviewViewModel {
         
         /// Subcribing to changes of the euros value allows us to build the datasource in the fly with the changes typed into the textfield
         eurosValue.subscribe(onNext: { eurosValue in
-            guard let euroCurrency = euroCurrency else { return }
+            guard let euroCurrency = baseCurrency else { return }
                         
-            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterValueCellViewModel in
-                CurrencyConverterValueCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
+            cellViewModels = euroCurrency.rates.map { (rate) -> CurrencyConverterOverviewCellViewModel in
+                CurrencyConverterOverviewCellViewModel(title: rate.title.rawValue, value: String(rate.value * eurosValue))
             }
                         
             cellViewModelsSource.onNext(.just(cellViewModels))
@@ -111,7 +118,7 @@ struct CurrencyConverterOverviewViewModel {
         .disposed(by: disposeBag)
         
         /// This code handles keeping track of deselected rows
-        input.itemDeselected.subscribe(onNext: {
+        input.itemDeselected?.subscribe(onNext: {
             let selectedRow = $0.row
             
             // Remove the row if it is already in the array
@@ -124,17 +131,20 @@ struct CurrencyConverterOverviewViewModel {
         .disposed(by: disposeBag)
         
         input.compareButtonTapped.subscribe(onNext: {
-            var currenciesToCompare = [CurrencyAbbreviation]()
+            var currenciesToCompare = [CurrencySymbol]()
                         
             selectedCellIndexes.forEach {
-                if let currencyAbreviation = euroCurrency?.rates[$0].title {
+                if let currencyAbreviation = baseCurrency?.rates[$0].title {
                     currenciesToCompare.append(currencyAbreviation)
                 }
                 
             }
             
             if currenciesToCompare.count == 2 {
-                navigateToComparison(currenciesToCompare)
+                guard let baseCurrencySymbol = baseCurrency?.base else { fatalError("There should be a base currency") }
+                dependencies.navigateToComparison(.init(baseCurrencySymbol: baseCurrencySymbol,
+                                                        currencyOneSymbol: currenciesToCompare[0],
+                                                        currencyTwoSymbol: currenciesToCompare[1]))
             } else {
                 fatalError("It should not be possible to get here if there are notn exactly 2 currencies selected")
             }
@@ -144,8 +154,7 @@ struct CurrencyConverterOverviewViewModel {
         
         
         // MARK:- Outputs
-        output = Output(title: "Currency Converter",
-                        initialEurosValue: "100.70",
+        output = Output(title: dependencies.title,
                         items: items.asDriverOrAssertionFailure(),
                         unselectRowAt: unselectRowsSource,
                         enableCompareButton: enableCompareSource,
@@ -157,10 +166,19 @@ struct CurrencyConverterOverviewViewModel {
 
 extension CurrencyConverterOverviewViewModel {
     
+    struct Dependencies {
+        let title: String
+        let navigateToComparison: (CurrencyConverterComparisonConfig) -> Void
+        let client: FixerIOClientProtocol
+        let cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterOverviewCellViewModel]>>
+    }
+}
+
+extension CurrencyConverterOverviewViewModel {
+    
     struct Output {
         let title: String
-        let initialEurosValue: String
-        let items: Driver<[CurrencyConverterValueCellViewModel]>
+        let items: Driver<[CurrencyConverterOverviewCellViewModel]>
         let unselectRowAt: Observable<Int>
         let enableCompareButton: Observable<Bool>
         let hideLoadingView: Observable<Void>
@@ -170,7 +188,7 @@ extension CurrencyConverterOverviewViewModel {
     struct UIInput {
         let eurosValueEntered: Observable<String?>
         let itemSelected: Observable<IndexPath>
-        let itemDeselected: Observable<IndexPath>
+        let itemDeselected: Observable<IndexPath>?
         let compareButtonTapped: Observable<Void>
     }
 }
@@ -181,11 +199,7 @@ extension CurrencyConverterOverviewViewModel: CurrencyConverterOverviewViewModel
         output.title
     }
     
-    var initialEurosValue: String {
-        output.initialEurosValue
-    }
-    
-    var items: Driver<[CurrencyConverterValueCellViewModel]> {
+    var items: Driver<[CurrencyConverterOverviewCellViewModel]> {
         output.items
     }
     

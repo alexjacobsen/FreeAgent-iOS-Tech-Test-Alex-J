@@ -10,7 +10,6 @@ protocol Storyboardable {
 
 extension Storyboardable {
     static var storyboardBundle: Bundle? { return nil }
-    static var storyboardIdentifier: String? { return storyboardName }
     
     static func create() -> Self {
         let storyboard = UIStoryboard(name: storyboardName, bundle: storyboardBundle)

@@ -10,7 +10,7 @@ class CurrencyConverterOverviewViewController: UIViewController {
     @IBOutlet private weak var compareButton: UIButton!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
-            tableView.register(types: [CurrencyConverterValueCell.self])
+            tableView.register(types: [CurrencyConverterOverviewCell.self])
         }
     }
     
@@ -55,7 +55,7 @@ class CurrencyConverterOverviewViewController: UIViewController {
     private func bind(_ viewModel: CurrencyConverterOverviewViewModelProtocol) {
         self.viewModel = viewModel
         self.navigationItem.title = viewModel.title
-        let cellType = CurrencyConverterValueCell.self
+        let cellType = CurrencyConverterOverviewCell.self
         
         /// Drive the items in the table view from the data source in the view model
         viewModel.items
@@ -67,7 +67,7 @@ class CurrencyConverterOverviewViewController: UIViewController {
         /// Unselect cells determined by the view model
         viewModel.unselectRowAt.subscribe(onNext: { [weak self] index in
             let indexPath = IndexPath(row: index, section: 0)
-            let cell = self?.tableView.cellForRow(at: indexPath) as? CurrencyConverterValueCell
+            let cell = self?.tableView.cellForRow(at: indexPath) as? CurrencyConverterOverviewCell
             
             cell?.setSelected(false, animated: false)
         })
@@ -99,7 +99,7 @@ extension CurrencyConverterOverviewViewController: UITextFieldDelegate {
 extension CurrencyConverterOverviewViewController: Storyboardable {
     
     static var storyboardIdentifier: String? {
-        "CurrencyConverter"
+        "CurrencyConverterOverview"
     }
     
     static var storyboardName: String {

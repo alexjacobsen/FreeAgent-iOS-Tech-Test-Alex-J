@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 final class CurrencyConverterCoordinator: Coordinator {
     
@@ -24,6 +25,7 @@ extension CurrencyConverterCoordinator {
     
     struct Dependencies {
         let navigationController: UINavigationController
+        let client: FixerIOClient
     }
 }
 
@@ -32,7 +34,7 @@ internal extension CurrencyConverterCoordinator {
     
     enum Stage {
         case overview
-        case comparison
+        case comparison(config: CurrencyConverterComparisonConfig)
     }
     
     func goTo(_ stage: Stage) {
@@ -41,24 +43,24 @@ internal extension CurrencyConverterCoordinator {
             let overviewViewController = CurrencyConverterOverviewViewController.create()
             overviewViewController.viewModelFactory = { input in
                 return CurrencyConverterOverviewViewModel(input: input,
-                                                          navigateToComparison: { [weak self] currenciesToCompare in
-                                                            self?.goTo(.comparison)
-                                                          })
+                                                          dependencies: .init(title: "Currency Converter",
+                                                                              navigateToComparison: { [weak self] config in self?.goTo(.comparison(config: config))},
+                                                                              client: self.dependencies.client,
+                                                                              cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterOverviewCellViewModel]>>()))
             }
             dependencies.navigationController.show(overviewViewController, sender: self)
             return
             
-        case .comparison:
-            //            let comparisonViewController = CurrencyConverterComparisonViewController.create()
-//            overviewViewController.viewModelFactory = { [unowned self] input in
-//                return CurrencyConverterComparisonViewModel(input: input,
-//                                                   sendEvent: self.actions.common.sendEvent,
-//                                                   gotoEnergyUsage: { [weak self] in self?.goTo(.energyUsage) },
-//                                                   gotoTou: { [weak self] in self?.goTo(.tou) },
-//                                                   didTapBack: { [weak self] in self?.actions.didTapBack() },
-//                                                   didAppear: { [weak self] in self?.clearChildCoordinator() })
-//            }
-//            dependencies.navigationController.push(comparisonViewController, sender: self)
+        case .comparison(let config):
+            let comparisonViewController = CurrencyConverterComparisonViewController.create()
+            comparisonViewController.viewModelFactory = { [unowned self] input in
+                return CurrencyConverterComparisonViewModel(input: input,
+                                                            dependencies: .init(title: "Currency Comparison",
+                                                                                config: config,
+                                                                                client: self.dependencies.client,
+                                                                                cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterComparisonCellViewModel]>>()))
+            }
+            dependencies.navigationController.pushViewController(comparisonViewController, animated: true)
         return
         
         }
