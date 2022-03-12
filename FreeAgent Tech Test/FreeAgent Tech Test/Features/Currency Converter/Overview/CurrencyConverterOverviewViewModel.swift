@@ -25,7 +25,7 @@ struct CurrencyConverterOverviewViewModel {
     init(input: UIInput, dependencies: Dependencies) {
         
         // MARK:- Observables
-        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterOverviewCellViewModel]>>()
+        let cellViewModelsSource = dependencies.cellViewModelsSource
         let cellViewModelsObservable: Observable<[CurrencyConverterOverviewCellViewModel]> = cellViewModelsSource.switchLatest()
         
         let unselectRowsSource = PublishSubject<Int>()
@@ -51,7 +51,16 @@ struct CurrencyConverterOverviewViewModel {
     
         // MARK:- Networking
         
-        let result: Observable<Currency> = dependencies.client.getLastestExchangeRates(symbols: [.usd, .jpy, .gbp, .aud, .cad, .chf, .chf, .cny, .sek, .nzd])
+        let result: Observable<Currency> = dependencies.client.getLastestExchangeRates(base: .eur, symbols: [.usd,
+                                                                                                             .eur,
+                                                                                                             .jpy,
+                                                                                                             .gbp,
+                                                                                                             .aud,
+                                                                                                             .cad,
+                                                                                                             .chf,
+                                                                                                             .cny,
+                                                                                                             .sek,
+                                                                                                             .nzd])
         
         // Success
         result.subscribe(onNext: { currency in
@@ -109,7 +118,7 @@ struct CurrencyConverterOverviewViewModel {
         .disposed(by: disposeBag)
         
         /// This code handles keeping track of deselected rows
-        input.itemDeselected.subscribe(onNext: {
+        input.itemDeselected?.subscribe(onNext: {
             let selectedRow = $0.row
             
             // Remove the row if it is already in the array
@@ -160,7 +169,8 @@ extension CurrencyConverterOverviewViewModel {
     struct Dependencies {
         let title: String
         let navigateToComparison: (CurrencyConverterComparisonConfig) -> Void
-        let client: FixerIOClient
+        let client: FixerIOClientProtocol
+        let cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterOverviewCellViewModel]>>
     }
 }
 
@@ -178,7 +188,7 @@ extension CurrencyConverterOverviewViewModel {
     struct UIInput {
         let eurosValueEntered: Observable<String?>
         let itemSelected: Observable<IndexPath>
-        let itemDeselected: Observable<IndexPath>
+        let itemDeselected: Observable<IndexPath>?
         let compareButtonTapped: Observable<Void>
     }
 }

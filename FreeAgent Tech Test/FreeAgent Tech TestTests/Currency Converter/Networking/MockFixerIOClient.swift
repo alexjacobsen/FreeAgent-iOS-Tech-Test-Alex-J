@@ -24,6 +24,7 @@ class MockFixerIOClient: FixerIOClientProtocol {
         self.dateString = dateString
         
         self.rates[.usd] = usdExchangeRate
+        self.rates[.eur] = 1.0
         self.rates[.aud] = audExchangeRate
         self.rates[.cad] = cadExchangeRate
         self.rates[.jpy] = jpyExchangeRate

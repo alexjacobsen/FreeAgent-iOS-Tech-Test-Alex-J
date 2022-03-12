@@ -5,23 +5,23 @@ import RxTest
 @testable import FreeAgent_Tech_Test
 
 class CurrencyConverterComparisonViewModelTests: XCTestCase {
-
+    
     // MARK: - Properties
     private var disposeBag: DisposeBag!
     private var testScheduler: TestScheduler!
     private var cellViewModelObserver: TestableObserver<[CurrencyConverterComparisonCellViewModel]>!
     private var sortTappedTrigger: PublishSubject<Void>! = PublishSubject<Void>()
     private var viewModel: CurrencyConverterComparisonViewModel!
-
+    
     override func setUp() {
         super.setUp()
-
+        
         disposeBag = DisposeBag()
         testScheduler = TestScheduler(initialClock: 0)
         cellViewModelObserver = testScheduler.createObserver([CurrencyConverterComparisonCellViewModel].self)
         sortTappedTrigger = PublishSubject<Void>()
     }
-
+    
     override func tearDown() {
         cellViewModelObserver = nil
         testScheduler = nil
@@ -36,8 +36,8 @@ class CurrencyConverterComparisonViewModelTests: XCTestCase {
         
         // The View model is hardcoded to only retrieve the past 5 days
         let expectedResult: [CurrencyConverterComparisonCellViewModel] = Array(repeating: CurrencyConverterComparisonCellViewModel(date: "2022-03-06",
-                                                                                                                                        currencyOneRate: .init(title: .aud, value: 12.0),
-                                                                                                                                        currencyTwoRate: .init(title: .gbp, value: 19.0)), count: 5)
+                                                                                                                                   currencyOneRate: .init(title: .aud, value: 12.0),
+                                                                                                                                   currencyTwoRate: .init(title: .gbp, value: 19.0)), count: 5)
         let mockClient = MockFixerIOClient(dateString: "2022-03-06",
                                            audExchangeRate: 12.0,
                                            gbpExchangeRate: 19.0)
@@ -51,7 +51,7 @@ class CurrencyConverterComparisonViewModelTests: XCTestCase {
                                        expectedResult: expectedResult)
         }
     }
-
+    
 }
 
 private extension CurrencyConverterComparisonViewModelTests {
@@ -73,7 +73,7 @@ private extension CurrencyConverterComparisonViewModelTests {
             
         }).disposed(by: disposeBag)
         
-        viewModel = generateAndTestViewModel(input: getUIInput(),
+        viewModel = generateViewModel(input: getUIInput(),
                                              config: config,
                                              cellViewModelsSource: cellViewModelsSource,
                                              client: client)
@@ -87,7 +87,7 @@ private extension CurrencyConverterComparisonViewModelTests {
     }
     
     @discardableResult
-    func generateAndTestViewModel(input: CurrencyConverterComparisonViewModel.UIInput,
+    func generateViewModel(input: CurrencyConverterComparisonViewModel.UIInput,
                                   config: CurrencyConverterComparisonConfig,
                                   cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterComparisonCellViewModel]>>,
                                   client: MockFixerIOClient) -> CurrencyConverterComparisonViewModel {
@@ -107,9 +107,6 @@ private extension CurrencyConverterComparisonViewModelTests {
         return viewModel
     }
     
-    private func getCellViewModels() -> [CurrencyConverterComparisonCellViewModel] {
-        return cellViewModelObserver.events.filter { $0.value.element != nil }.map { $0.value.element }.last!!
-    }
 }
 
 

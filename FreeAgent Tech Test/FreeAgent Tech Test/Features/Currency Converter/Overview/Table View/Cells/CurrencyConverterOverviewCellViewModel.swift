@@ -11,3 +11,10 @@ class CurrencyConverterOverviewCellViewModel {
         self.value = value
     }
 }
+
+extension CurrencyConverterOverviewCellViewModel: Equatable {
+    
+    static func == (lhs: CurrencyConverterOverviewCellViewModel, rhs: CurrencyConverterOverviewCellViewModel) -> Bool {
+        lhs.title == rhs.title && lhs.value == rhs.value
+    }
+}

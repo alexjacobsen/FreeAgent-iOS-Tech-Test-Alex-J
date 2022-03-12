@@ -54,6 +54,7 @@
 		FADAB6D427DD0F80001AE5B5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB5EA27DB633C001AE5B5 /* Date+Extensions.swift */; };
 		FADAB6DE27DD0FF6001AE5B5 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB5E527DB60D4001AE5B5 /* DateFormatter+Extensions.swift */; };
 		FADAB6F127DD14A3001AE5B5 /* XCTestExpectations+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB6EC27DD1499001AE5B5 /* XCTestExpectations+Extensions.swift */; };
+		FADAB6F927DD3BAF001AE5B5 /* CurrencyConverterOverviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAB6F827DD3BAF001AE5B5 /* CurrencyConverterOverviewViewModelTests.swift */; };
 		FAEA07DD27D3AF1E00D38E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */; };
 		FAEA07DF27D3AF1E00D38E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */; };
 		FAEA07E427D3AF1E00D38E40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA07E227D3AF1E00D38E40 /* Main.storyboard */; };
@@ -126,6 +127,7 @@
 		FADAB65827DBCDF0001AE5B5 /* CurrencyConverterComparisonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterComparisonViewModelTests.swift; sourceTree = "<group>"; };
 		FADAB67927DCFA5E001AE5B5 /* MockFixerIOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFixerIOClient.swift; sourceTree = "<group>"; };
 		FADAB6EC27DD1499001AE5B5 /* XCTestExpectations+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestExpectations+Extensions.swift"; sourceTree = "<group>"; };
+		FADAB6F827DD3BAF001AE5B5 /* CurrencyConverterOverviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterOverviewViewModelTests.swift; sourceTree = "<group>"; };
 		FAEA07D927D3AF1E00D38E40 /* FreeAgent Tech Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FreeAgent Tech Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA07DC27D3AF1E00D38E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAEA07DE27D3AF1E00D38E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		FADAB67527DCF9B7001AE5B5 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
+				FADAB6F827DD3BAF001AE5B5 /* CurrencyConverterOverviewViewModelTests.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				FADAB6D027DD0F2E001AE5B5 /* RequestType.swift in Sources */,
 				FADAB69227DD0C2E001AE5B5 /* CurrencyConverterComparisonCellViewModel.swift in Sources */,
 				FADAB6DE27DD0FF6001AE5B5 /* DateFormatter+Extensions.swift in Sources */,
+				FADAB6F927DD3BAF001AE5B5 /* CurrencyConverterOverviewViewModelTests.swift in Sources */,
 				FADAB6BC27DD0E96001AE5B5 /* Storyboardable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
