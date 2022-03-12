@@ -174,10 +174,42 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Client/FixerIOClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "getHistoricalExchangeRates(for:base:symbols:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "56A10094-0EBE-4490-9471-06D04D174D94 - cc95e08f76dfd996"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #2 (RxSwift.AnyObserver&lt;FreeAgent_Tech_Test.Currency&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_Test.FixerIOClient.getHistoricalExchangeRates(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencySymbol, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencySymbol&gt;) -&gt; RxSwift.Observable&lt;FreeAgent_Tech_Test.Currency&gt;"
+                  moduleName = "FreeAgent Tech Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "1075">
+               </Location>
+               <Location
+                  uuid = "56A10094-0EBE-4490-9471-06D04D174D94 - a3fe2934f4c89b7a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #2 (RxSwift.AnyObserver&lt;FreeAgent_Tech_TestTests.Currency&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_TestTests.FixerIOClient.getHistoricalExchangeRates(for: Foundation.Date, base: FreeAgent_Tech_TestTests.CurrencySymbol, symbols: Swift.Array&lt;FreeAgent_Tech_TestTests.CurrencySymbol&gt;) -&gt; RxSwift.Observable&lt;FreeAgent_Tech_TestTests.Currency&gt;"
+                  moduleName = "FreeAgent Tech TestTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "1075">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -190,10 +222,42 @@
             filePath = "FreeAgent Tech Test/Features/Currency Converter/Networking/Client/FixerIOClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "getHistoricalExchangeRates(for:base:symbols:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9941421A-4F91-4583-BDF7-F4DDE4270F4C - cc95e08f76dfd928"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #2 (RxSwift.AnyObserver&lt;FreeAgent_Tech_Test.Currency&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_Test.FixerIOClient.getHistoricalExchangeRates(for: Foundation.Date, base: FreeAgent_Tech_Test.CurrencySymbol, symbols: Swift.Array&lt;FreeAgent_Tech_Test.CurrencySymbol&gt;) -&gt; RxSwift.Observable&lt;FreeAgent_Tech_Test.Currency&gt;"
+                  moduleName = "FreeAgent Tech Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "674">
+               </Location>
+               <Location
+                  uuid = "9941421A-4F91-4583-BDF7-F4DDE4270F4C - a3fe2934f4c89bc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #2 (RxSwift.AnyObserver&lt;FreeAgent_Tech_TestTests.Currency&gt;) -&gt; RxSwift.Disposable in FreeAgent_Tech_TestTests.FixerIOClient.getHistoricalExchangeRates(for: Foundation.Date, base: FreeAgent_Tech_TestTests.CurrencySymbol, symbols: Swift.Array&lt;FreeAgent_Tech_TestTests.CurrencySymbol&gt;) -&gt; RxSwift.Observable&lt;FreeAgent_Tech_TestTests.Currency&gt;"
+                  moduleName = "FreeAgent Tech TestTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/FreeAgent-iOS-Tech-Test-Alex-J/FreeAgent%20Tech%20Test/FreeAgent%20Tech%20Test/Features/Currency%20Converter/Networking/Client/FixerIOClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "674">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -225,6 +289,22 @@
             startingLineNumber = "85"
             endingLineNumber = "85"
             landmarkName = "bind(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4F4D1F1D-1F9E-4C4F-9893-2333E9542B95"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreeAgent Tech TestTests/Currency Converter/Comparison/CurrencyConverterComparisonViewModelTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "getHistoricalCurrencyRates(config:client:expectation:expectedResult:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

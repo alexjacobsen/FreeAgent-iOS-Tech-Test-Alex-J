@@ -4,10 +4,38 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>FreeAgent Tech Test.xcscheme_^#shared#^_</key>
+		<key>FreeAgent Tech Test Unit Tests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>8</integer>
+		</dict>
+		<key>FreeAgent Tech Test.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>FreeAgent Tech TestTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>FAEA07D827D3AF1E00D38E40</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAEA07EE27D3AF1F00D38E40</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAEA07F927D3AF2000D38E40</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

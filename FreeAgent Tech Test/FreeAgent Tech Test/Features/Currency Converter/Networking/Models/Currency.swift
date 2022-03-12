@@ -1,13 +1,17 @@
 
-struct Currency: Codable {
+struct Currency {
+    
     let success: Bool
     let historical: Bool? // Only will be recieved during a historical API call
     let timestamp: Int
     let base: CurrencySymbol
     let date: String
     let rates: [CurrencyRate]
+}
+
+extension Currency: Codable {
     
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let rateDictionary = try container.decode([String: Double].self, forKey: .rates)
         
@@ -27,12 +31,17 @@ struct Currency: Codable {
     }
 }
 
-struct CurrencyRate: Codable {
+struct CurrencyRate: Codable, Equatable {
     let title: CurrencySymbol
     let value: Double
+    
+    public init(title: CurrencySymbol, value: Double) {
+        self.title = title
+        self.value = value
+    }
 }
 
-enum CurrencySymbol: String, Codable {
+public enum CurrencySymbol: String, Codable, Equatable {
     case usd = "USD"
     case eur = "EUR"
     case jpy = "JPY"

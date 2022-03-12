@@ -1,7 +1,12 @@
 import Foundation
 import RxSwift
 
-class FixerIOClient {
+protocol FixerIOClientProtocol {
+    func getLastestExchangeRates(base: CurrencySymbol, symbols: [CurrencySymbol]) -> Observable<Currency>
+    func getHistoricalExchangeRates(for date: Date, base: CurrencySymbol, symbols: [CurrencySymbol]) -> Observable<Currency>
+}
+
+public class FixerIOClient: FixerIOClientProtocol {
     
     
     /// This method makes a GET call to retrieve the latest exchange rates for a provided base currency
@@ -9,7 +14,7 @@ class FixerIOClient {
     ///   - base: The base currency
     ///   - symbols: The currencies being compared againsts the base
     /// - Returns: A Currency model
-    func getLastestExchangeRates<Currency: Codable>(base: CurrencySymbol = .eur,
+    func getLastestExchangeRates(base: CurrencySymbol = .eur,
                                                     symbols: [CurrencySymbol]) -> Observable<Currency> {
         
         let apiKeyParameter = URLQueryItem(name: String.apiKeyParameterTitle, value: String.apiKeyParameterValue)
@@ -47,7 +52,7 @@ class FixerIOClient {
     ///   - base: The base currency
     ///   - symbols: The currencies being compared againsts the base
     /// - Returns: A Currency model
-    func getHistoricalExchangeRates<Currency: Codable>(for date: Date,
+    func getHistoricalExchangeRates(for date: Date,
                                                        base: CurrencySymbol,
                                                        symbols: [CurrencySymbol]) -> Observable<Currency> {
         

@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 final class CurrencyConverterCoordinator: Coordinator {
     
@@ -55,7 +56,7 @@ internal extension CurrencyConverterCoordinator {
                 return CurrencyConverterComparisonViewModel(input: input,
                                                             dependencies: .init(title: "Currency Comparison",
                                                                                 config: config,
-                                                                                client: self.dependencies.client))
+                                                                                client: self.dependencies.client, cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterComparisonCellViewModel]>>()))
             }
             dependencies.navigationController.pushViewController(comparisonViewController, animated: true)
         return

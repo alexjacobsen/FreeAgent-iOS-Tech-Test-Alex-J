@@ -12,7 +12,7 @@ target 'FreeAgent Tech Test' do
     pod 'RxSwift', '6.5.0'
     pod 'RxCocoa', '6.5.0'
 
-  target 'FreeAgent Tech TestTests' do
+  target 'FreeAgent Tech Test Unit Tests' do
     inherit! :search_paths
     
     pod 'RxBlocking', '6.5.0'

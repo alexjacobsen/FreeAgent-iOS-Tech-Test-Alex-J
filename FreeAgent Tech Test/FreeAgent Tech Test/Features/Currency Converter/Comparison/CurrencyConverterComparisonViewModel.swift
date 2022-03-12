@@ -14,10 +14,18 @@ private enum TableItem {
     case currencyComparisonCell(_ viewModel: CurrencyConverterComparisonCellViewModel)
 }
 
-struct CurrencyConverterComparisonConfig {
+public struct CurrencyConverterComparisonConfig {
     let baseCurrencySymbol: CurrencySymbol
     let currencyOneSymbol: CurrencySymbol
     let currencyTwoSymbol: CurrencySymbol
+    
+    init(baseCurrencySymbol: CurrencySymbol,
+         currencyOneSymbol: CurrencySymbol,
+         currencyTwoSymbol: CurrencySymbol) {
+        self.baseCurrencySymbol = baseCurrencySymbol
+        self.currencyOneSymbol = currencyOneSymbol
+        self.currencyTwoSymbol = currencyTwoSymbol
+    }
 }
 
 struct CurrencyConverterComparisonViewModel {
@@ -29,7 +37,7 @@ struct CurrencyConverterComparisonViewModel {
     init(input: UIInput, dependencies: Dependencies) {
         
         // MARK:- Observables
-        let cellViewModelsSource = PublishSubject<Observable<[CurrencyConverterComparisonCellViewModel]>>()
+        let cellViewModelsSource = dependencies.cellViewModelsSource
         let cellViewModelsObservable: Observable<[CurrencyConverterComparisonCellViewModel]> = cellViewModelsSource.switchLatest()
         
         let hideLoadingView = PublishSubject<Void>()
@@ -48,8 +56,8 @@ struct CurrencyConverterComparisonViewModel {
         // Success
         apiResultsObservable.subscribe(onNext: { currencies in
             let viewModels = currencies.map { CurrencyConverterComparisonCellViewModel(date: $0.date,
-                                                                                       currencyOneValue: String($0.rates[0].value),
-                                                                                       currencyTwoValue: String($0.rates[1].value)) }
+                                                                                       currencyOneRate: $0.rates[0],
+                                                                                       currencyTwoRate: $0.rates[1]) }
             cellViewModels = viewModels
             cellViewModelsSource.onNext(.just(cellViewModels))
             
@@ -86,7 +94,7 @@ struct CurrencyConverterComparisonViewModel {
     
 }
 
-private func getHistoricalRates(client: FixerIOClient,
+private func getHistoricalRates(client: FixerIOClientProtocol,
                                 numberOfPastDays: Int,
                                 config: CurrencyConverterComparisonConfig) -> Observable<[Currency]> {
     var observables = [Observable<Currency>]()
@@ -130,7 +138,8 @@ extension CurrencyConverterComparisonViewModel {
     struct Dependencies {
         let title: String
         let config: CurrencyConverterComparisonConfig
-        let client: FixerIOClient
+        let client: FixerIOClientProtocol
+        let cellViewModelsSource: PublishSubject<Observable<[CurrencyConverterComparisonCellViewModel]>>
     }
 }
 
